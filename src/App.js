@@ -1,11 +1,13 @@
 import { Main } from "./pages/Main/main";
 import { Profile } from "./pages/Profile/profile";
+import { AdvPage } from "./pages/AdvPage/AdvPage";
 
 function App() {
   return (
     <div className="App">
       {/* <Main /> */}
-      <Profile />
+      {/* <Profile /> */}
+      <AdvPage></AdvPage>
     </div>
   );
 }

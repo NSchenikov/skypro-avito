@@ -1,59 +1,71 @@
 import "./profile.css";
 export const Profile = () => {
   return (
-    <div class="wrapper">
-      <div class="container">
-        <header class="header">
-          <nav class="header__nav">
-            <div class="header__logo logo-mob">
-              <a class="logo-mob__link" href="" target="_blank">
-                <img class="logo-mob__img" src="img/logo-mob.png" alt="logo" />
+    <div className="wrapper">
+      <div className="container">
+        <header className="header">
+          <nav className="header__nav">
+            <div className="header__logo logo-mob">
+              <a className="logo-mob__link" href="" target="_blank">
+                <img
+                  className="logo-mob__img"
+                  src="img/logo-mob.png"
+                  alt="logo"
+                />
               </a>
             </div>
-            <button class="header__btn-putAd btn-hov01" id="btputAd">
+            <button className="header__btn-putAd btn-hov01" id="btputAd">
               Разместить объявление
             </button>
-            <button class="header__btn-lk btn-hov01" id="btnlk">
+            <button className="header__btn-lk btn-hov01" id="btnlk">
               Личный кабинет
             </button>
           </nav>
         </header>
-        <main class="main">
-          <div class="main__container">
-            <div class="main__center-block">
-              <div class="main__menu menu">
-                <a class="menu__logo-link" href="" target="_blank">
-                  <img class="menu__logo-img" src="img/logo.png" alt="logo" />
+        <main className="main">
+          <div className="main__container">
+            <div className="main__center-block">
+              <div className="main__menu menu">
+                <a className="menu__logo-link" href="" target="_blank">
+                  <img
+                    className="menu__logo-img"
+                    src="img/logo.png"
+                    alt="logo"
+                  />
                 </a>
-                <form class="menu__form" action="#">
-                  <button class="menu__btn btn-hov02" id="btnGoBack">
+                <form className="menu__form" action="#">
+                  <button className="menu__btn btn-hov02" id="btnGoBack">
                     Вернуться на&nbsp;главную
                   </button>
                 </form>
               </div>
 
-              <h2 class="main__h2">Здравствуйте, Антон!</h2>
+              <h2 className="main__h2">Здравствуйте, Антон!</h2>
 
-              <div class="main__profile profile">
-                <div class="profile__content">
-                  <h3 class="profile__title title">Настройки профиля</h3>
-                  <div class="profile__settings settings">
-                    <div class="settings__left">
-                      <div class="settings__img">
+              <div className="main__profile profile">
+                <div className="profile__content">
+                  <h3 className="profile__title title">Настройки профиля</h3>
+                  <div className="profile__settings settings">
+                    <div className="settings__left">
+                      <div className="settings__img">
                         <a href="" target="_self">
                           <img src="#" alt="" />
                         </a>
                       </div>
-                      <a class="settings__change-photo" href="" target="_self">
+                      <a
+                        className="settings__change-photo"
+                        href=""
+                        target="_self"
+                      >
                         Заменить
                       </a>
                     </div>
-                    <div class="settings__right">
-                      <form class="settings__form" action="#">
-                        <div class="settings__div">
+                    <div className="settings__right">
+                      <form className="settings__form" action="#">
+                        <div className="settings__div">
                           <label for="fname">Имя</label>
                           <input
-                            class="settings__f-name"
+                            className="settings__f-name"
                             id="settings-fname"
                             name="fname"
                             type="text"
@@ -62,10 +74,10 @@ export const Profile = () => {
                           />
                         </div>
 
-                        <div class="settings__div">
+                        <div className="settings__div">
                           <label for="lname">Фамилия</label>
                           <input
-                            class="settings__l-name"
+                            className="settings__l-name"
                             id="settings-lname"
                             name="lname"
                             type="text"
@@ -74,10 +86,10 @@ export const Profile = () => {
                           />
                         </div>
 
-                        <div class="settings__div">
+                        <div className="settings__div">
                           <label for="city">Город</label>
                           <input
-                            class="settings__city"
+                            className="settings__city"
                             id="settings-city"
                             name="city"
                             type="text"
@@ -86,10 +98,10 @@ export const Profile = () => {
                           />
                         </div>
 
-                        <div class="settings__div">
+                        <div className="settings__div">
                           <label for="phone">Телефон</label>
                           <input
-                            class="settings__phone"
+                            className="settings__phone"
                             id="settings-phone"
                             name="phone"
                             type="tel"
@@ -99,7 +111,7 @@ export const Profile = () => {
                         </div>
 
                         <button
-                          class="settings__btn btn-hov02"
+                          className="settings__btn btn-hov02"
                           id="settings-btn"
                         >
                           Сохранить
@@ -110,126 +122,126 @@ export const Profile = () => {
                 </div>
               </div>
 
-              <h3 class="main__title title">Мои товары</h3>
+              <h3 className="main__title title">Мои товары</h3>
             </div>
-            <div class="main__content">
-              <div class="content__cards cards">
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+            <div className="main__content">
+              <div className="content__cards cards">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
 
-                <div class="cards__item">
-                  <div class="cards__card card">
-                    <div class="card__image">
+                <div className="cards__item">
+                  <div className="cards__card card">
+                    <div className="card__image">
                       <a href="" target="_blank">
                         <img src="#" alt="picture" />
                       </a>
                     </div>
-                    <div class="card__content">
+                    <div className="card__content">
                       <a href="" target="_blank">
-                        <h3 class="card__title">
+                        <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
                       </a>
-                      <p class="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p class="card__place">Санкт Петербург</p>
-                      <p class="card__date">Сегодня в&nbsp;10:45</p>
+                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
+                      <p className="card__place">Санкт Петербург</p>
+                      <p className="card__date">Сегодня в&nbsp;10:45</p>
                     </div>
                   </div>
                 </div>
@@ -238,19 +250,19 @@ export const Profile = () => {
           </div>
         </main>
 
-        <footer class="footer">
-          <div class="footer__container">
-            <div class="footer__img">
+        <footer className="footer">
+          <div className="footer__container">
+            <div className="footer__img">
               <a href="" target="_self">
                 <img src="img/icon_01.png" alt="home" />
               </a>
             </div>
-            <div class="footer__img">
+            <div className="footer__img">
               <a href="" target="_self">
                 <img src="img/icon_02.png" alt="home" />
               </a>
             </div>
-            <div class="footer__img">
+            <div className="footer__img">
               <a href="" target="_self">
                 <img src="img/icon_03.png" alt="home" />
               </a>
