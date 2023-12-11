@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 import "./main.css";
 
 export const Main = () => {
@@ -10,7 +13,7 @@ export const Main = () => {
               className="header__btn-main-enter btn-hov01"
               id="btnMainEnter"
             >
-              Вход в личный кабинет
+              <Link to="login">Вход в личный кабинет</Link>
             </button>
           </nav>
         </header>

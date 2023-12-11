@@ -51,7 +51,7 @@ export const Register = () => {
               placeholder="Город (необязательно)"
             />
             <button className="modal__btn-signup-ent" id="SignUpEnter">
-              <a href="../index.html">Зарегистрироваться</a>{" "}
+              <a href="">Зарегистрироваться</a>
             </button>
           </form>
         </div>
