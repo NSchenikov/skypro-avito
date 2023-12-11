@@ -1,6 +1,6 @@
-import "./article.css";
+import "./my-article.css";
 
-export const AdvPage = () => {
+export const MyAdvPage = () => {
   return (
     <div className="wrapper">
       <div className="container">
@@ -32,7 +32,7 @@ export const AdvPage = () => {
               </a>
               <form className="menu__form" action="#">
                 <button className="menu__btn-serch btn-hov02" id="btnGoBack">
-                  Вернуться на главную
+                  Вернуться на&nbsp;главную
                 </button>
               </form>
             </div>
@@ -83,22 +83,27 @@ export const AdvPage = () => {
                     <p className="article__date">Сегодня в 10:45</p>
                     <p className="article__city">Санкт-Петербург</p>
                     <a className="article__link" href="" target="_blank" rel="">
-                      23 отзыва
+                      4 отзыва
                     </a>
                   </div>
                   <p className="article__price">2 200 ₽</p>
-                  <button className="article__btn btn-hov02">
-                    Показать&nbsp;телефон
-                    <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
-                  </button>
+                  <div className="article__btn-block">
+                    <button className="article__btn btn-redact btn-hov02">
+                      Редактировать
+                    </button>
+                    <button className="article__btn btn-remove btn-hov02">
+                      Снять с публикации
+                    </button>
+                  </div>
+
                   <div className="article__author author">
                     <div className="author__img">
                       <img src="" alt="" />
                     </div>
                     <div className="author__cont">
-                      <p className="author__name">Кирилл</p>
+                      <p className="author__name">Антон</p>
                       <p className="author__about">
-                        Продает товары с августа 2021
+                        Продает товары с&nbsp;мая 2022
                       </p>
                     </div>
                   </div>

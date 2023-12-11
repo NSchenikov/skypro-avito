@@ -1,9 +1,9 @@
-import { Register } from "../src/pages/register/register";
+import { AdvSettings } from "./pages/AdvSettings/advSettings";
 
 function App() {
   return (
     <div className="App">
-      <Register></Register>
+      <AdvSettings></AdvSettings>
     </div>
   );
 }
