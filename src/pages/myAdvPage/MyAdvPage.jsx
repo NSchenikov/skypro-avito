@@ -7,7 +7,7 @@ export const MyAdvPage = () => {
         <header className="header">
           <nav className="header__nav">
             <div className="header__logo logo-mob">
-              <a className="logo-mob__link" href="" target="_blank">
+              <a className="logo-mob__link" href="/" target="_blank">
                 <img
                   className="logo-mob__img"
                   src="img/logo-mob.png"
@@ -27,7 +27,7 @@ export const MyAdvPage = () => {
         <main className="main">
           <div className="main__container">
             <div className="main__menu menu">
-              <a className="menu__logo-link" href="" target="_blank">
+              <a className="menu__logo-link" href="/" target="_blank">
                 <img className="menu__logo-img" src="img/logo.png" alt="logo" />
               </a>
               <form className="menu__form" action="#">
@@ -82,7 +82,12 @@ export const MyAdvPage = () => {
                   <div className="article__info">
                     <p className="article__date">Сегодня в 10:45</p>
                     <p className="article__city">Санкт-Петербург</p>
-                    <a className="article__link" href="" target="_blank" rel="">
+                    <a
+                      className="article__link"
+                      href="/"
+                      target="_blank"
+                      rel=""
+                    >
                       4 отзыва
                     </a>
                   </div>
@@ -131,17 +136,17 @@ export const MyAdvPage = () => {
         <footer className="footer">
           <div className="footer__container">
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_01.png" alt="home" />
               </a>
             </div>
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_02.png" alt="home" />
               </a>
             </div>
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_03.png" alt="home" />
               </a>
             </div>

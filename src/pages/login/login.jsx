@@ -35,11 +35,11 @@ export const Login = () => {
               id="btnEnter"
               onClick={setUser}
             >
-              <a href="">Войти</a>
+              <a href="/">Войти</a>
             </button>
             <button className="modal__btn-signup" id="btnSignUp">
               <Link to="/register">
-                <a href="">Зарегистрироваться</a>
+                <a href="/">Зарегистрироваться</a>
               </Link>
             </button>
           </form>

@@ -1,8 +1,12 @@
-import React from "react";
+import { React, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { getAds } from "../../API/api";
 import "./main.css";
 
 export const Main = () => {
+  useEffect(() => {
+    getAds();
+  }, []);
   return (
     <div className="wrapper">
       <div className="container">

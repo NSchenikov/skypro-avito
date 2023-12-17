@@ -1,6 +1,6 @@
 import { AppRoutes } from "../src/routes/routes";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 function App() {
   const [user, setUser] = useState(null);
