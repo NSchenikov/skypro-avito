@@ -44,7 +44,8 @@ export const Main = () => {
             <h2 className="main__h2">Объявления</h2>
 
             <div className="main__content">
-              <div className="content__cards cards">
+              {/* <div className="content__cards cards"> */}
+              <div className="cards">
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">

@@ -151,6 +151,7 @@ a {
 .search__logo-img {
   width: 54px;
   height: auto;
+  display: none;
 }
 
 .search__form {
@@ -236,34 +237,33 @@ a {
   display: -ms-grid;
   display: grid;
   /* -ms-grid-columns: (270px) [4]; */
-  grid-template-columns: repeat(4, 500px);
+  grid-template-columns: repeat(4, 270px);
   grid-auto-rows: 441px;
+  grid-gap: 40px 26px;
   grid-gap: 40px 26px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
+  align-items: center;
   overflow-y: auto;
   overflow: hidden;
   scrollbar-color: #ffffff #2e2e2e;
   scrollbar-width: thin;
   scrollbar-width: 0px;
-  height: 922px;
+  height: 441px;
+
+  /* width: 1500px;
+  display: grid;
+  grid-template-columns: repeat(4, 270px);
+  height: 1000px;
+  overflow: hidden; */
 }
 
 .cards::-webkit-scrollbar {
-  overflow: auto;
-  scrollbar-width: none;
-  width: 0;
-  background-color: #009ee4;
   display: none;
 }
 
 .cards::-webkit-scrollbar-thumb {
-  background-color: #0080c1;
-  border-radius: 3px;
-  overflow: auto;
-  scrollbar-width: none;
-  width: 0;
   display: none;
 }
 
