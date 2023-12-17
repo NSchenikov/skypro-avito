@@ -6,7 +6,7 @@ export const Profile = () => {
         <header className="header">
           <nav className="header__nav">
             <div className="header__logo logo-mob">
-              <a className="logo-mob__link" href="" target="_blank">
+              <a className="logo-mob__link" href="/" target="_blank">
                 <img
                   className="logo-mob__img"
                   src="img/logo-mob.png"
@@ -26,7 +26,7 @@ export const Profile = () => {
           <div className="main__container">
             <div className="main__center-block">
               <div className="main__menu menu">
-                <a className="menu__logo-link" href="" target="_blank">
+                <a className="menu__logo-link" href="/" target="_blank">
                   <img
                     className="menu__logo-img"
                     src="img/logo.png"
@@ -48,13 +48,13 @@ export const Profile = () => {
                   <div className="profile__settings settings">
                     <div className="settings__left">
                       <div className="settings__img">
-                        <a href="" target="_self">
-                          <img src="#" alt="" />
+                        <a href="/" target="_self">
+                          <img src="#" alt="pic" />
                         </a>
                       </div>
                       <a
                         className="settings__change-photo"
-                        href=""
+                        href="/"
                         target="_self"
                       >
                         Заменить
@@ -129,12 +129,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -149,12 +149,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -169,12 +169,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -189,12 +189,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -209,12 +209,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -229,12 +229,12 @@ export const Profile = () => {
                 <div className="cards__item">
                   <div className="cards__card card">
                     <div className="card__image">
-                      <a href="" target="_blank">
-                        <img src="#" alt="picture" />
+                      <a href="/" target="_blank">
+                        <img src="#" alt="pic" />
                       </a>
                     </div>
                     <div className="card__content">
-                      <a href="" target="_blank">
+                      <a href="/" target="_blank">
                         <h3 className="card__title">
                           Ракетка для большого тенниса Triumph Pro ST
                         </h3>
@@ -253,17 +253,17 @@ export const Profile = () => {
         <footer className="footer">
           <div className="footer__container">
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_01.png" alt="home" />
               </a>
             </div>
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_02.png" alt="home" />
               </a>
             </div>
             <div className="footer__img">
-              <a href="" target="_self">
+              <a href="/" target="_self">
                 <img src="img/icon_03.png" alt="home" />
               </a>
             </div>
