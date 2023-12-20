@@ -8,6 +8,6 @@ export async function getAds() {
   }
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
   return data;
 }

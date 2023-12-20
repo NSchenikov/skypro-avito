@@ -1,11 +1,17 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getAds } from "../../API/api";
 import "./main.css";
 
 export const Main = () => {
+  let [ads, setAds] = useState([]);
+
   useEffect(() => {
-    getAds();
+    getAds().then((response) => {
+      setAds(response);
+      // ads = useRef(response);
+      console.log(response);
+    });
   }, []);
   return (
     <div className="wrapper">
@@ -48,167 +54,31 @@ export const Main = () => {
             <h2 className="main__h2">Объявления</h2>
 
             <div className="main__content">
-              {/* <div className="content__cards cards"> */}
               <div className="cards">
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
+                {ads.map((ad, index) => {
+                  // console.log(
+                  //   `./../../../back-skyVito/data/${ad.images[0].url}`
+                  // );
+                  return (
+                    <div className="cards__item" key={index}>
+                      <div className="cards__card card">
+                        <div className="card__image">
+                          <img
+                            alt="pic"
+                            // src={`./../../../back-skyVito/data/${ad.images[0].url}`}
+                            src=""
+                          />
+                        </div>
+                        <div className="card__content">
+                          <h3 className="card__title">{ad.title}</h3>
+                          <p className="card__price">{ad.price}&nbsp;₽</p>
+                          <p className="card__place">{ad.user.city}</p>
+                          <p className="card__date">Сегодня в&nbsp;10:45</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <img alt="pic" src="#" />
-                    </div>
-                    <div className="card__content">
-                      <h3 className="card__title">
-                        Ракетка для большого тенниса Triumph Pro ST
-                      </h3>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
           </div>
