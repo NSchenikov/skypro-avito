@@ -4,6 +4,7 @@ import { getAds } from "../../API/api";
 import "./main.css";
 
 export const Main = () => {
+  const baseUrl = "http://127.0.0.1:8090/";
   let [ads, setAds] = useState([]);
 
   useEffect(() => {
@@ -58,18 +59,13 @@ export const Main = () => {
                 {ads.map((ad, index) => {
                   let imgUrl =
                     ad.images.length !== 0
-                      ? `/../../../back-skyVito/data/${ad.images[0].url}`
+                      ? `${baseUrl}${ad.images[0].url}`
                       : "";
-                  console.log(imgUrl);
                   return (
                     <div className="cards__item" key={index}>
                       <div className="cards__card card">
                         <div className="card__image">
-                          <img
-                            alt="pic"
-                            src="/public/img/ad_images/26bac8a9-5de1-481d-a30b-421c977e659b.png"
-                            // src={imgUrl}
-                          />
+                          <img alt="pic" src={imgUrl} />
                         </div>
                         <div className="card__content">
                           <h3 className="card__title">{ad.title}</h3>
