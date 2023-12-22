@@ -1,6 +1,6 @@
-import "./ad";
+import "./AdvList.css";
 
-export const Ad = ({ ads }) => {
+export const AdvList = ({ ads }) => {
   const baseUrl = "http://127.0.0.1:8090/";
 
   return ads.map((ad, index) => {
