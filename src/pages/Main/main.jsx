@@ -7,6 +7,8 @@ import "./main.css";
 
 export const Main = () => {
   let [ads, setAds] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredAds, setFilteredAds] = useState(ads);
 
   useEffect(() => {
     getAds().then((response) => {
@@ -14,18 +16,24 @@ export const Main = () => {
       console.log(response);
     });
   }, []);
+  useEffect(() => {
+    const searchFilter = ads.filter((ad) =>
+      ad.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredAds(searchValue ? searchFilter : ads);
+  }, [searchValue, ads]);
   return (
     <div className="wrapper">
       <div className="container">
         <Header />
         <main className="main">
-          <Search />
+          <Search setSearchValue={setSearchValue} />
           <div className="main__container">
             <h2 className="main__h2">Объявления</h2>
 
             <div className="main__content">
               <div className="cards">
-                <AdvList ads={ads} />;
+                <AdvList ads={filteredAds} />;
               </div>
             </div>
           </div>
