@@ -1,6 +1,28 @@
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { baseUrl, months } from "../../components/advList/AdvList";
 import "./article.css";
 
 export const AdvPage = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const adv = location.state;
+  let [chosenImg, setChosenImg] = useState(adv.imgUrl);
+  const dateObj = new Date(adv.adv.user.sells_from);
+  let month = dateObj.getMonth();
+  let years = dateObj.getFullYear();
+  // console.log(dateObj);
+  // console.log(adv.adv);
+  let [phoneOnShow, setPhoneOnShow] = useState(false);
+  const getShortenedPhone = (phone) => {
+    let fewNums = phone.slice(0, 4);
+    let xes = "";
+    for (let i = 5; i <= phone.length; i++) {
+      xes = xes + "X";
+    }
+    let shortenedPhone = fewNums + xes;
+    return shortenedPhone;
+  };
   return (
     <div className="wrapper">
       <div className="container">
@@ -28,10 +50,18 @@ export const AdvPage = () => {
           <div className="main__container">
             <div className="main__menu menu">
               <a className="menu__logo-link" href="/" target="_blank">
-                <img className="menu__logo-img" src="img/logo.png" alt="logo" />
+                <img
+                  className="menu__logo-img"
+                  src="/img/logo.png"
+                  alt="logo"
+                />
               </a>
               <form className="menu__form" action="#">
-                <button className="menu__btn-serch btn-hov02" id="btnGoBack">
+                <button
+                  className="menu__btn-serch btn-hov02"
+                  id="btnGoBack"
+                  onClick={() => navigate("/")}
+                >
                   Вернуться на главную
                 </button>
               </form>
@@ -43,27 +73,29 @@ export const AdvPage = () => {
               <div className="article__left">
                 <div className="article__fill-img">
                   <div className="article__img">
-                    <img src="" alt="" />
+                    <img src={chosenImg} alt="" />
                   </div>
                   <div className="article__img-bar">
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
-                    <div className="article__img-bar-div">
-                      <img src="" alt="" />
-                    </div>
+                    {adv.adv.images.length !== 0 ? (
+                      adv.adv.images.map((img, index) => {
+                        let imgUrl = `${baseUrl}${img.url}`;
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => {
+                              setChosenImg(imgUrl);
+                            }}
+                            className="article__img-bar-div"
+                          >
+                            <img src={imgUrl} alt="" />
+                          </div>
+                        );
+                      })
+                    ) : (
+                      <div className="article__img-bar-div">
+                        <img src="" alt="" />
+                      </div>
+                    )}
                   </div>
                   <div className="article__img-bar-mob img-bar-mob">
                     <div className="img-bar-mob__circle circle-active"></div>
@@ -76,12 +108,10 @@ export const AdvPage = () => {
               </div>
               <div className="article__right">
                 <div className="article__block">
-                  <h3 className="article__title title">
-                    Ракетка для большого тенниса Triumph Pro STС Б/У
-                  </h3>
+                  <h3 className="article__title title">{adv.adv.title}</h3>
                   <div className="article__info">
-                    <p className="article__date">Сегодня в 10:45</p>
-                    <p className="article__city">Санкт-Петербург</p>
+                    <p className="article__date">{adv.publicationDate}</p>
+                    <p className="article__city">{adv.adv.user.city}</p>
                     <a
                       className="article__link"
                       href="/"
@@ -91,19 +121,31 @@ export const AdvPage = () => {
                       23 отзыва
                     </a>
                   </div>
-                  <p className="article__price">2 200 ₽</p>
-                  <button className="article__btn btn-hov02">
+                  <p className="article__price">{adv.adv.price} ₽</p>
+                  <button
+                    className="article__btn btn-hov02"
+                    onClick={() => {
+                      setPhoneOnShow(!phoneOnShow);
+                    }}
+                  >
                     Показать&nbsp;телефон
-                    <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
+                    <br />
+                    {phoneOnShow
+                      ? adv.adv.user.phone
+                        ? adv.adv.user.phone
+                        : "телефон не указан"
+                      : adv.adv.user.phone
+                      ? getShortenedPhone(adv.adv.user.phone)
+                      : "телефон не указан"}
                   </button>
                   <div className="article__author author">
                     <div className="author__img">
-                      <img src="" alt="" />
+                      <img src={`${baseUrl}${adv.adv.user.avatar}`} alt="" />
                     </div>
                     <div className="author__cont">
-                      <p className="author__name">Кирилл</p>
+                      <p className="author__name">{adv.adv.user.name}</p>
                       <p className="author__about">
-                        Продает товары с августа 2021
+                        {`Продает товары с ${months[month]} ${years}`}
                       </p>
                     </div>
                   </div>
@@ -115,15 +157,7 @@ export const AdvPage = () => {
           <div className="main__container">
             <h3 className="main__title title">Описание товара</h3>
             <div className="main__content">
-              <p className="main__text">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+              <p className="main__text">{adv.adv.description}</p>
             </div>
           </div>
         </main>
