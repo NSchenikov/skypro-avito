@@ -23,6 +23,15 @@ export const AdvPage = () => {
     let shortenedPhone = fewNums + xes;
     return shortenedPhone;
   };
+  const handleClick = () => {
+    navigate(`/sellerprofile/${adv.adv.user.id}`, {
+      state: {
+        adv: adv,
+        allAds: adv.allAds,
+      },
+    });
+  };
+  // console.log("allAds", adv.allAds);
   return (
     <div className="wrapper">
       <div className="container">
@@ -138,7 +147,7 @@ export const AdvPage = () => {
                       ? getShortenedPhone(adv.adv.user.phone)
                       : "телефон не указан"}
                   </button>
-                  <div className="article__author author">
+                  <div className="article__author author" onClick={handleClick}>
                     <div className="author__img">
                       <img src={`${baseUrl}${adv.adv.user.avatar}`} alt="" />
                     </div>

@@ -24,14 +24,6 @@ export const AppRoutes = ({ user }) => {
           </ProtectedRoute>
         }
       />
-      {/* <Route
-        path="/advpage"
-        element={
-          <ProtectedRoute user={user} isAllowed={Boolean(user)}>
-            <AdvPage />
-          </ProtectedRoute>
-        }
-      /> */}
       <Route
         path="/myadvpage"
         element={
@@ -41,7 +33,7 @@ export const AppRoutes = ({ user }) => {
         }
       />
       <Route
-        path="/sellerprofile"
+        path="/sellerprofile/:id"
         element={
           <ProtectedRoute user={user} isAllowed={Boolean(user)}>
             <SellerProfile />

@@ -39,6 +39,7 @@ export const AdvList = ({ ads }) => {
           adv: ad,
           publicationDate: publicationDate,
           imgUrl: imgUrl,
+          allAds: ads,
         },
       });
     };
