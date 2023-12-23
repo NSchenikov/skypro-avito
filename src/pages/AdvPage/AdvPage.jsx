@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { baseUrl, months } from "../../components/advList/AdvList";
+import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import "./article.css";
 
 export const AdvPage = () => {
@@ -11,18 +12,7 @@ export const AdvPage = () => {
   const dateObj = new Date(adv.adv.user.sells_from);
   let month = dateObj.getMonth();
   let years = dateObj.getFullYear();
-  // console.log(dateObj);
-  // console.log(adv.adv);
-  let [phoneOnShow, setPhoneOnShow] = useState(false);
-  const getShortenedPhone = (phone) => {
-    let fewNums = phone.slice(0, 4);
-    let xes = "";
-    for (let i = 5; i <= phone.length; i++) {
-      xes = xes + "X";
-    }
-    let shortenedPhone = fewNums + xes;
-    return shortenedPhone;
-  };
+
   const handleClick = () => {
     navigate(`/sellerprofile/${adv.adv.user.id}`, {
       state: {
@@ -31,7 +21,7 @@ export const AdvPage = () => {
       },
     });
   };
-  // console.log("allAds", adv.allAds);
+
   return (
     <div className="wrapper">
       <div className="container">
@@ -131,22 +121,7 @@ export const AdvPage = () => {
                     </a>
                   </div>
                   <p className="article__price">{adv.adv.price} ₽</p>
-                  <button
-                    className="article__btn btn-hov02"
-                    onClick={() => {
-                      setPhoneOnShow(!phoneOnShow);
-                    }}
-                  >
-                    Показать&nbsp;телефон
-                    <br />
-                    {phoneOnShow
-                      ? adv.adv.user.phone
-                        ? adv.adv.user.phone
-                        : "телефон не указан"
-                      : adv.adv.user.phone
-                      ? getShortenedPhone(adv.adv.user.phone)
-                      : "телефон не указан"}
-                  </button>
+                  <PhoneButton userData={adv.adv.user.phone} />
                   <div className="article__author author" onClick={handleClick}>
                     <div className="author__img">
                       <img src={`${baseUrl}${adv.adv.user.avatar}`} alt="" />

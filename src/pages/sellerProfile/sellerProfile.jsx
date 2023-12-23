@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseUrl, months } from "../../components/advList/AdvList";
 import { AdvList } from "../../components/advList/AdvList";
+import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import "./sellerProfile.css";
 
 export const SellerProfile = () => {
@@ -90,11 +91,7 @@ export const SellerProfile = () => {
                           </a>
                         </div>
                       </div>
-
-                      <button className="seller__btn btn-hov02">
-                        Показать&nbsp;телефон
-                        <span>8&nbsp;905&nbsp;ХХХ&nbsp;ХХ&nbsp;ХХ</span>
-                      </button>
+                      <PhoneButton userData={adv.adv.adv.user.phone} />
                     </div>
                   </div>
                 </div>
