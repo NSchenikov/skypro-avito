@@ -197,6 +197,15 @@ a {
   justify-content: center;
 }
 
+.possibleError {
+  height: 30px;
+}
+
+.error {
+  color: red;
+  font-size: xx-small;
+}
+
 @media screen and (max-width: 768px) {
   .modal__block {
     left: calc(50% - (320px / 2));

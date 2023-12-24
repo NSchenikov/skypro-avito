@@ -1,5 +1,6 @@
 import { AppRoutes } from "../src/routes/routes";
 import { useState } from "react";
+import { AuthProvider } from "./Contexts/AuthContext";
 // import { useNavigate } from "react-router-dom";
 
 function App() {
@@ -14,10 +15,12 @@ function App() {
   return (
     <div className="App">
       <div className="App-layout">
-        <AppRoutes
-          user={user}
-          // onAuthButtonClick={user ? handleLogout : handleLogin}
-        ></AppRoutes>
+        <AuthProvider>
+          <AppRoutes
+            user={user}
+            // onAuthButtonClick={user ? handleLogout : handleLogin}
+          ></AppRoutes>
+        </AuthProvider>
       </div>
     </div>
   );
