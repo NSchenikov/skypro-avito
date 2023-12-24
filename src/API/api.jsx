@@ -67,7 +67,7 @@ export const getToken = async (email, password) => {
 
   if (!response.ok) {
     console.log(data);
-    const error = data.email ?? data.password;
+    const error = data.detail[0].msg ?? data.detail;
     console.log(error);
     throw new Error(error);
   } else {

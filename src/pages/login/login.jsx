@@ -1,18 +1,53 @@
 import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getToken } from "../../API/api";
+import { useAuth } from "../../Contexts/AuthContext";
 import "./signin.css";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const setUser = () => {
-    localStorage.setItem("user", "token");
-    // user = true
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const setUser = (user, token) => {
+    localStorage.setItem(user, token);
     navigate("/", { replace: true });
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setError(null);
+    console.log("submited form");
+    getToken(email, password)
+      .then((res) => {
+        setUser("user", res.access_token);
+        setIsLoggedIn(true);
+        setAuthUser(email);
+        console.log(authUser);
+        setLoading(false);
+        console.log(res);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setLoading(false);
+        console.log(error.message);
+      });
+  };
+
+  const errorDiv = error ? <div className="error">{error}</div> : "";
   return (
     <div className="wrapper">
       <div className="container-enter">
         <div className="modal__block">
-          <form className="modal__form-login" id="formLogIn" action="#">
+          <form
+            className="modal__form-login"
+            id="formLogIn"
+            action="#"
+            onSubmit={handleSubmit}
+          >
             <div className="modal__logo">
               <img src="../img/logo_modal.png" alt="logo" />
             </div>
@@ -22,6 +57,8 @@ export const Login = () => {
               name="login"
               id="formlogin"
               placeholder="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <input
               className="modal__input password"
@@ -29,18 +66,19 @@ export const Login = () => {
               name="password"
               id="formpassword"
               placeholder="Пароль"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
+            <div className="possibleError">{errorDiv}</div>
             <button
               className="modal__btn-enter"
               id="btnEnter"
-              onClick={setUser}
+              disabled={loading}
             >
-              <a href="/">Войти</a>
+              Войти
             </button>
             <button className="modal__btn-signup" id="btnSignUp">
-              <Link to="/register">
-                <a href="/">Зарегистрироваться</a>
-              </Link>
+              <Link to="/register">Зарегистрироваться</Link>
             </button>
           </form>
         </div>

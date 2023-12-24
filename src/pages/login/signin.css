@@ -252,6 +252,14 @@ a {
   margin-bottom: 30px;
 }
 
+.possibleError {
+  height: 20px;
+}
+.error {
+  color: red;
+  font-size: xx-small;
+}
+
 @media screen and (max-width: 768px) {
   .modal__block {
     position: absolute;
