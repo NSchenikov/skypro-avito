@@ -1,28 +1,21 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Header } from "../../components/header/header";
+import { getCurrentUser } from "../../API/api";
 import "./profile.css";
 export const Profile = () => {
+  const [currentUserData, setCurrentUserData] = useState([]);
+  let navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    getCurrentUser(localStorage.getItem("user")).then(
+      (res) => setCurrentUserData(res),
+      console.log(currentUserData)
+    );
+  }, []);
   return (
     <div className="wrapper">
       <div className="container">
-        {/* <header className="header">
-          <nav className="header__nav">
-            <div className="header__logo logo-mob">
-              <a className="logo-mob__link" href="/" target="_blank">
-                <img
-                  className="logo-mob__img"
-                  src="img/logo-mob.png"
-                  alt="logo"
-                />
-              </a>
-            </div>
-            <button className="header__btn-putAd btn-hov01" id="btputAd">
-              Разместить объявление
-            </button>
-            <button className="header__btn-lk btn-hov01" id="btnlk">
-              Личный кабинет
-            </button>
-          </nav>
-        </header> */}
         <Header />
         <main className="main">
           <div className="main__container">
@@ -36,13 +29,19 @@ export const Profile = () => {
                   />
                 </a>
                 <form className="menu__form" action="#">
-                  <button className="menu__btn btn-hov02" id="btnGoBack">
+                  <button
+                    className="menu__btn btn-hov02"
+                    id="btnGoBack"
+                    onClick={() => navigate("/")}
+                  >
                     Вернуться на&nbsp;главную
                   </button>
                 </form>
               </div>
 
-              <h2 className="main__h2">Здравствуйте, Антон!</h2>
+              <h2 className="main__h2">
+                {`Здравствуйте, ${currentUserData.name}!`}
+              </h2>
 
               <div className="main__profile profile">
                 <div className="profile__content">
@@ -71,7 +70,7 @@ export const Profile = () => {
                             id="settings-fname"
                             name="fname"
                             type="text"
-                            value="Ан"
+                            value={currentUserData.name}
                             placeholder=""
                           />
                         </div>
@@ -83,7 +82,7 @@ export const Profile = () => {
                             id="settings-lname"
                             name="lname"
                             type="text"
-                            value="Городецкий"
+                            value={currentUserData.surname}
                             placeholder=""
                           />
                         </div>
@@ -95,7 +94,7 @@ export const Profile = () => {
                             id="settings-city"
                             name="city"
                             type="text"
-                            value="Санкт-Петербург"
+                            value={currentUserData.city}
                             placeholder=""
                           />
                         </div>
@@ -107,8 +106,8 @@ export const Profile = () => {
                             id="settings-phone"
                             name="phone"
                             type="tel"
-                            value="89161234567"
-                            placeholder="+79161234567"
+                            value={currentUserData?.phone ?? ""}
+                            placeholder=""
                           />
                         </div>
 

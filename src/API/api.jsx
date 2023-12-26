@@ -75,3 +75,25 @@ export const getToken = async (email, password) => {
     return data;
   }
 };
+
+export const getCurrentUser = async (token) => {
+  const response = await fetch(`${baseUrl}/user`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data);
+    const error = data.detail[0].msg ?? data.detail;
+    console.log(error);
+    throw new Error(error);
+  } else {
+    // console.log(data)
+    return data;
+  }
+};
