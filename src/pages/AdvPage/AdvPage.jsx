@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { Header } from "../../components/header/header";
 import { baseUrl, months } from "../../components/advList/AdvList";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import "./article.css";
@@ -25,7 +26,7 @@ export const AdvPage = () => {
   return (
     <div className="wrapper">
       <div className="container">
-        <header className="header">
+        {/* <header className="header">
           <nav className="header__nav">
             <div className="header__logo logo-mob">
               <a className="logo-mob__link" href="/" target="_blank">
@@ -43,7 +44,8 @@ export const AdvPage = () => {
               Личный кабинет
             </button>
           </nav>
-        </header>
+        </header> */}
+        <Header />
 
         <main className="main">
           <div className="main__container">

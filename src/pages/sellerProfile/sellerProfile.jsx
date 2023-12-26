@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { baseUrl, months } from "../../components/advList/AdvList";
 import { AdvList } from "../../components/advList/AdvList";
+import { Header } from "../../components/header/header";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import "./sellerProfile.css";
 
@@ -22,7 +23,7 @@ export const SellerProfile = () => {
   return (
     <div className="wrapper">
       <div className="container">
-        <header className="header">
+        {/* <header className="header">
           <nav className="header__nav">
             <div className="header__logo logo-mob">
               <a className="logo-mob__link" href="/" target="_blank">
@@ -40,8 +41,8 @@ export const SellerProfile = () => {
               Личный кабинет
             </button>
           </nav>
-        </header>
-
+        </header> */}
+        <Header />
         <main className="main">
           <div className="main__container">
             <div className="main__center-block">

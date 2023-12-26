@@ -1,13 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import "./addnewat.css";
 
 export const AddNewAdv = () => {
+  let navigate = useNavigate();
   return (
     <div className="wrapper">
       <div className="container-bg">
         <div className="modal__block">
           <div className="modal__content">
             <h3 className="modal__title">Новое объявление</h3>
-            <div className="modal__btn-close">
+            <div className="modal__btn-close" onClick={() => navigate("/")}>
               <div className="modal__btn-close-line"></div>
             </div>
             <form

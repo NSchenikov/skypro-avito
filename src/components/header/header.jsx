@@ -1,13 +1,54 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../Contexts/AuthContext";
 import "./header.css";
 
 export const Header = () => {
+  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
+  const [user, setUser] = useState(null);
+  let navigate = useNavigate();
+  const handleLogOut = () => {
+    setUser(localStorage.clear());
+    setIsLoggedIn(false);
+    setAuthUser(null);
+    navigate("/login", { replace: true });
+  };
   return (
     <header className="header">
       <nav className="header__nav">
-        <button className="header__btn-main-enter btn-hov01" id="btnMainEnter">
-          <Link to="login">Вход в личный кабинет</Link>
-        </button>
+        {!localStorage.getItem("user") ? (
+          <button
+            className="header__btn-main-enter btn-hov01"
+            id="btnMainEnter"
+            onClick={() => navigate("/login")}
+          >
+            Вход в личный кабинет
+          </button>
+        ) : (
+          <>
+            <button
+              className="header__btn-putAd btn-hov01"
+              id="btputAd"
+              onClick={() => navigate("/addnewadv")}
+            >
+              Разместить объявление
+            </button>
+            <button
+              className="header__btn-lk btn-hov01"
+              id="btnlk"
+              onClick={() => navigate("/profile")}
+            >
+              Личный кабинет
+            </button>
+            <button
+              className="header__btn-lk btn-hov01"
+              id="btnlk"
+              onClick={handleLogOut}
+            >
+              Выйти
+            </button>
+          </>
+        )}
       </nav>
     </header>
   );

@@ -1,9 +1,10 @@
+import { Header } from "../../components/header/header";
 import "./profile.css";
 export const Profile = () => {
   return (
     <div className="wrapper">
       <div className="container">
-        <header className="header">
+        {/* <header className="header">
           <nav className="header__nav">
             <div className="header__logo logo-mob">
               <a className="logo-mob__link" href="/" target="_blank">
@@ -21,7 +22,8 @@ export const Profile = () => {
               Личный кабинет
             </button>
           </nav>
-        </header>
+        </header> */}
+        <Header />
         <main className="main">
           <div className="main__container">
             <div className="main__center-block">
