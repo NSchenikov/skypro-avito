@@ -8,11 +8,11 @@ export const Profile = () => {
   let navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    getCurrentUser(localStorage.getItem("user")).then(
-      (res) => setCurrentUserData(res),
-      console.log(currentUserData)
+    getCurrentUser(localStorage.getItem("user")).then((res) =>
+      setCurrentUserData(res)
     );
   }, []);
+  console.log(currentUserData);
   return (
     <div className="wrapper">
       <div className="container">
