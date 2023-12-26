@@ -17,7 +17,7 @@ export const Reviews = () => {
                 action="#"
               >
                 <div className="form-newArt__block">
-                  <label for="text">Добавить отзыв</label>
+                  <label htmlFor="text">Добавить отзыв</label>
                   <textarea
                     className="form-newArt__area"
                     name="text"

@@ -63,7 +63,7 @@ export const Profile = () => {
                     <div className="settings__right">
                       <form className="settings__form" action="#">
                         <div className="settings__div">
-                          <label for="fname">Имя</label>
+                          <label htmlFor="fname">Имя</label>
                           <input
                             className="settings__f-name"
                             id="settings-fname"
@@ -75,7 +75,7 @@ export const Profile = () => {
                         </div>
 
                         <div className="settings__div">
-                          <label for="lname">Фамилия</label>
+                          <label htmlFor="lname">Фамилия</label>
                           <input
                             className="settings__l-name"
                             id="settings-lname"
@@ -87,7 +87,7 @@ export const Profile = () => {
                         </div>
 
                         <div className="settings__div">
-                          <label for="city">Город</label>
+                          <label htmlFor="city">Город</label>
                           <input
                             className="settings__city"
                             id="settings-city"
@@ -99,7 +99,7 @@ export const Profile = () => {
                         </div>
 
                         <div className="settings__div">
-                          <label for="phone">Телефон</label>
+                          <label htmlFor="phone">Телефон</label>
                           <input
                             className="settings__phone"
                             id="settings-phone"

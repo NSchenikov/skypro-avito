@@ -16,7 +16,7 @@ export const AdvSettings = () => {
               action="#"
             >
               <div className="form-newArt__block">
-                <label for="name">Название</label>
+                <label htmlFor="name">Название</label>
                 <input
                   className="form-newArt__input"
                   type="text"
@@ -27,7 +27,7 @@ export const AdvSettings = () => {
                 />
               </div>
               <div className="form-newArt__block">
-                <label for="text">Описание</label>
+                <label htmlFor="text">Описание</label>
                 <textarea
                   className="form-newArt__area"
                   name="text"
@@ -74,7 +74,7 @@ export const AdvSettings = () => {
                 </div>
               </div>
               <div className="form-newArt__block block-price">
-                <label for="price">Цена</label>
+                <label htmlFor="price">Цена</label>
                 <input
                   className="form-newArt__input-price"
                   type="text"
