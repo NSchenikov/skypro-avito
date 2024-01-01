@@ -142,3 +142,38 @@ export async function refreshAccessToken(token) {
     return null;
   }
 }
+
+export const getMyAllAds = async () => {
+  let token = localStorage.getItem("refresh");
+  const endpoint = `${baseUrl}/ads/me`;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 401) {
+      const refreshedToken = await refreshAccessToken(token);
+      if (refreshedToken) {
+        token = refreshedToken;
+        const updatedResponse = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${refreshedToken}`,
+          },
+        });
+        const data = await updatedResponse.json();
+        return data;
+      }
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    const err = error.detail[0].msg ?? error.detail;
+    throw new Error(err);
+  }
+};

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
-// import { getCurrentUser, refreshToken } from "../../API/api";
-import { fetchCurrentUserData } from "../../API/api";
+import { AdvList } from "../../components/advList/AdvList";
+import { fetchCurrentUserData, getMyAllAds } from "../../API/api";
 import "./profile.css";
 export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
+  const [myAds, setMyAds] = useState([]);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +14,9 @@ export const Profile = () => {
       setCurrentUserData(data);
     });
     console.log(currentUserData);
+    getMyAllAds(localStorage.getItem("user")).then((data) => {
+      setMyAds(data);
+    });
   }, []);
 
   return (
@@ -72,7 +76,7 @@ export const Profile = () => {
                             id="settings-fname"
                             name="fname"
                             type="text"
-                            value={currentUserData.name}
+                            defaultValue={currentUserData.name}
                             placeholder=""
                           />
                         </div>
@@ -84,7 +88,7 @@ export const Profile = () => {
                             id="settings-lname"
                             name="lname"
                             type="text"
-                            value={currentUserData.surname}
+                            defaultValue={currentUserData.surname}
                             placeholder=""
                           />
                         </div>
@@ -96,7 +100,7 @@ export const Profile = () => {
                             id="settings-city"
                             name="city"
                             type="text"
-                            value={currentUserData.city}
+                            defaultValue={currentUserData.city}
                             placeholder=""
                           />
                         </div>
@@ -108,7 +112,7 @@ export const Profile = () => {
                             id="settings-phone"
                             name="phone"
                             type="tel"
-                            value={currentUserData?.phone ?? ""}
+                            defaultValue={currentUserData?.phone ?? ""}
                             placeholder=""
                           />
                         </div>
@@ -129,125 +133,11 @@ export const Profile = () => {
             </div>
             <div className="main__content">
               <div className="content__cards cards">
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="cards__item">
-                  <div className="cards__card card">
-                    <div className="card__image">
-                      <a href="/" target="_blank">
-                        <img src="#" alt="pic" />
-                      </a>
-                    </div>
-                    <div className="card__content">
-                      <a href="/" target="_blank">
-                        <h3 className="card__title">
-                          Ракетка для большого тенниса Triumph Pro ST
-                        </h3>
-                      </a>
-                      <p className="card__price">2&nbsp;200&nbsp;₽</p>
-                      <p className="card__place">Санкт Петербург</p>
-                      <p className="card__date">Сегодня в&nbsp;10:45</p>
-                    </div>
-                  </div>
-                </div>
+                {myAds ? (
+                  <AdvList ads={myAds} />
+                ) : (
+                  <div>товары отсутствуют</div>
+                )}
               </div>
             </div>
           </div>
