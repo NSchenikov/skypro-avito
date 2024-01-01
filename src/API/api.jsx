@@ -77,7 +77,7 @@ export const getToken = async (email, password) => {
 };
 
 export async function fetchCurrentUserData() {
-  let token = localStorage.getItem("user"); // текущий токен
+  let token = localStorage.getItem("refresh"); // текущий токен
   const endpoint = `${baseUrl}/user`; // эндпоинт для получения данных
 
   try {
