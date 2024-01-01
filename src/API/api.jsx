@@ -76,34 +76,69 @@ export const getToken = async (email, password) => {
   }
 };
 
-export const getCurrentUser = async (token) => {
-  const response = await fetch(`${baseUrl}/user`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "content-type": "application/json",
-    },
-  });
+export async function fetchCurrentUserData() {
+  let token = localStorage.getItem("user"); // текущий токен
+  const endpoint = `${baseUrl}/user`; // эндпоинт для получения данных
 
-  const data = await response.json();
+  try {
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  return data;
-};
+    if (response.status === 401) {
+      // Если получили ошибку 401, значит токен устарел
+      // Здесь можно обновить токен и попробовать получить данные заново
+      const refreshedToken = await refreshAccessToken(token);
+      if (refreshedToken) {
+        token = refreshedToken;
+        const updatedResponse = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${refreshedToken}`,
+          },
+        });
+        const data = await updatedResponse.json();
+        // Обработка полученных данных после обновления токена
+        return data;
+      }
+    } else {
+      const data = await response.json();
+      // Обработка полученных данных
+      return data;
+    }
+  } catch (error) {
+    // Обработка других ошибок
+    const err = error.detail[0].msg ?? error.detail;
+    throw new Error(err);
+  }
+}
 
-export const refreshToken = async (token, refreshtkn) => {
-  const response = await fetch(`${baseUrl}/auth/login`, {
-    method: "PUT",
-    body: JSON.stringify({
-      access_token: `Bearer ${token}`,
-      refresh_token: `Bearer ${refreshtkn}`,
-    }),
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "content-type": "application/json",
-    },
-  });
+export async function refreshAccessToken(token) {
+  const refreshToken = localStorage.getItem("refresh"); // refresh token
 
-  const data = await response.json();
+  try {
+    const response = await fetch(`${baseUrl}/auth/login`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        access_token: token,
+        refresh_token: refreshToken,
+      }),
+    });
 
-  return data;
-};
+    if (response.ok) {
+      const newToken = await response.json();
+      return newToken.access_token;
+    } else {
+      throw new Error("Не удалось обновить токен");
+    }
+  } catch (error) {
+    console.error("Ошибка при обновлении токена:", error);
+    return null;
+  }
+}
