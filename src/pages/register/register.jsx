@@ -9,8 +9,8 @@ export const Register = () => {
   }
   const navigate = useNavigate();
   const id = getRandomIntId(500000000000000);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
   let [city, setCity] = useState("");
@@ -18,9 +18,19 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const validateForm = () => password === confirmPassword;
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
-  const setUser = (user, token) => {
+  const {
+    authUser,
+    setAuthUser,
+    isLoggedIn,
+    setIsLoggedIn,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useAuth();
+  const setUser = (user, token, refresh, refreshtok) => {
     localStorage.setItem(user, token);
+    localStorage.setItem(refresh, refreshtok);
     navigate("/", { replace: true });
   };
   const handleSubmit = (event) => {
@@ -34,7 +44,7 @@ export const Register = () => {
         .then(() => {
           getToken(email, password)
             .then((res) => {
-              setUser("user", res.access_token);
+              setUser("user", res.access_token, "refresh", res.refresh_token);
               setIsLoggedIn(true);
               setAuthUser(email);
             })

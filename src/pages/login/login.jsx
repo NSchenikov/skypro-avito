@@ -1,19 +1,28 @@
 import { useNavigate, Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { getToken } from "../../API/api";
 import { useAuth } from "../../Contexts/AuthContext";
 import "./signin.css";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const { authUser, setAuthUser, isLoggedIn, setIsLoggedIn } = useAuth();
-  const setUser = (user, token) => {
+  const {
+    authUser,
+    setAuthUser,
+    setIsLoggedIn,
+    email,
+    setEmail,
+    password,
+    setPassword,
+  } = useAuth();
+  const setUser = (user, token, refresh, refreshtok) => {
     localStorage.setItem(user, token);
+    localStorage.setItem(refresh, refreshtok);
     navigate("/", { replace: true });
   };
   const handleSubmit = (event) => {
@@ -23,7 +32,7 @@ export const Login = () => {
     console.log("submited form");
     getToken(email, password)
       .then((res) => {
-        setUser("user", res.access_token);
+        setUser("user", res.access_token, "refresh", res.refresh_token);
         setIsLoggedIn(true);
         setAuthUser(email);
         console.log(authUser);

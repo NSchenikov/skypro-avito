@@ -1,18 +1,33 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
-import { getCurrentUser } from "../../API/api";
+import { getCurrentUser, refreshToken, getToken } from "../../API/api";
+import { useAuth } from "../../Contexts/AuthContext";
 import "./profile.css";
 export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
+  const { authUser, email, password } = useAuth();
   let navigate = useNavigate();
-  const location = useLocation();
   useEffect(() => {
-    getCurrentUser(localStorage.getItem("user")).then((res) =>
-      setCurrentUserData(res)
-    );
+    getCurrentUser(localStorage.getItem("user")).then((res) => {
+      console.log("res", res.detail);
+      if (res.detail) {
+        refreshToken(
+          localStorage.getItem("user"),
+          localStorage.getItem("refresh")
+        )
+          .then((res) => {
+            localStorage.setItem("user", res.access_token);
+            localStorage.setItem("refresh", res.refresh_token);
+            console.log("refreshed!");
+            return res;
+          })
+          .then((res) => getCurrentUser(res.access_token));
+      } else {
+        setCurrentUserData(res);
+      }
+    });
   }, []);
-  console.log(currentUserData);
   return (
     <div className="wrapper">
       <div className="container">

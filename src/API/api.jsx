@@ -87,13 +87,23 @@ export const getCurrentUser = async (token) => {
 
   const data = await response.json();
 
-  if (!response.ok) {
-    console.log(data);
-    const error = data.detail[0].msg ?? data.detail;
-    console.log(error);
-    throw new Error(error);
-  } else {
-    // console.log(data)
-    return data;
-  }
+  return data;
+};
+
+export const refreshToken = async (token, refreshtkn) => {
+  const response = await fetch(`${baseUrl}/auth/login`, {
+    method: "PUT",
+    body: JSON.stringify({
+      access_token: `Bearer ${token}`,
+      refresh_token: `Bearer ${refreshtkn}`,
+    }),
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  return data;
 };
