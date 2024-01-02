@@ -184,8 +184,13 @@ export function uploadAvatar(formData) {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
+      // "Content-Type":
+      //   "multipart/form-data; boundary=----WebKitFormBoundaryrmMyANW5BVRm90s",
+      "Content-Type":
+        "multipart/form-data; boundary=-------------573cf973d5228",
       // "Content-Type": "multipart/form-data",
-      "Content-Type": "application/json",
+      // "Content-Type": "undefined",
+      // "Content-Type": "application/json",
     },
     // body: {
     //   file: formData,
