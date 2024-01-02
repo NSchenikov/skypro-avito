@@ -180,41 +180,41 @@ export const getMyAllAds = async () => {
 
 export async function uploadAvatar(formData) {
   let token = localStorage.getItem("refresh");
-  fetch(`${baseUrl}/user/avatar`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: {
-      file: formData,
-    },
-    // body: formData,
-  })
-    .then((response) => {
-      if (response.status === 401) {
-        const refreshedToken = refreshAccessToken(token); //
-        if (refreshedToken) {
-          token = refreshedToken;
-          const updatedResponse = fetch(`${baseUrl}/user`, {
-            //
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${refreshedToken}`,
-            },
-          });
-          const data = updatedResponse.json(); //
-          return data;
-        }
-      } else {
-        const data = response.json(); //
+  try {
+    const response = await fetch(`${baseUrl}/user/avatar`, {
+      //
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "multipart/form-data": "application/json",
+      },
+      // body: {
+      //   file: formData,
+      // },
+      body: formData,
+    });
+    if (response.status === 401) {
+      const refreshedToken = await refreshAccessToken(token); //
+      if (refreshedToken) {
+        token = refreshedToken;
+        const updatedResponse = fetch(`${baseUrl}/user`, {
+          //
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${refreshedToken}`,
+          },
+        });
+        const data = await updatedResponse.json(); //
         return data;
       }
-    })
-    .then((data) => {
-      console.log("File uploaded successfully", data);
-    })
-    .catch((error) => {
-      console.error("There was a problem with the file upload", error);
-    });
+    } else {
+      const data = await response.json(); //
+      console.log(data);
+      return data;
+    }
+
+    console.log("File uploaded successfully");
+  } catch {
+    console.error("There was a problem with the file upload");
+  }
 }
