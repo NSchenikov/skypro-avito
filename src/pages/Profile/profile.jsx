@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
 import { AdvList } from "../../components/advList/AdvList";
+import { UploadPhoto } from "../../components/uploadPhoto/uploadPhoto";
 import { fetchCurrentUserData, getMyAllAds } from "../../API/api";
 import "./profile.css";
 export const Profile = () => {
@@ -13,7 +14,7 @@ export const Profile = () => {
     fetchCurrentUserData().then((data) => {
       setCurrentUserData(data);
     });
-    console.log(currentUserData);
+    // console.log(currentUserData);
     getMyAllAds(localStorage.getItem("user")).then((data) => {
       setMyAds(data);
     });
@@ -59,13 +60,14 @@ export const Profile = () => {
                           <img src="#" alt="pic" />
                         </a>
                       </div>
-                      <a
+                      {/* <div
+                        style={{ cursor: "pointer" }}
                         className="settings__change-photo"
-                        href="/"
                         target="_self"
                       >
                         Заменить
-                      </a>
+                      </div> */}
+                      {/* <UploadPhoto /> */}
                     </div>
                     <div className="settings__right">
                       <form className="settings__form" action="#">
