@@ -5,15 +5,19 @@ import "./uploadPhoto.css";
 
 export const UploadPhoto = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const formData = new FormData();
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    // setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files);
+    console.log("selected", selectedFile);
+
+    formData.append("myFile", selectedFile);
   };
 
   const handleUploadClick = () => {
     if (selectedFile) {
-      const formData = new FormData();
-      formData.append("file", selectedFile);
+      console.log("formdata", formData);
       uploadAvatar(formData);
     } else {
       console.error("No file selected");
