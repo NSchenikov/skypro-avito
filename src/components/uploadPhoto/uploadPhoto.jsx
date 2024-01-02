@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { baseUrl, refreshAccessToken } from "../../API/api";
+import { uploadAvatar } from "../../API/api";
 import "./uploadPhoto.css";
 
 export const UploadPhoto = () => {
@@ -11,30 +11,10 @@ export const UploadPhoto = () => {
   };
 
   const handleUploadClick = () => {
-    let token = localStorage.getItem("user");
     if (selectedFile) {
       const formData = new FormData();
       formData.append("file", selectedFile);
-
-      fetch(`${baseUrl}/user/avatar`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: formData,
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          console.log("File uploaded successfully", data);
-        })
-        .catch((error) => {
-          console.error("There was a problem with the file upload", error);
-        });
+      uploadAvatar(formData);
     } else {
       console.error("No file selected");
     }

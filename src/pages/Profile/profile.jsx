@@ -67,7 +67,7 @@ export const Profile = () => {
                       >
                         Заменить
                       </div> */}
-                      {/* <UploadPhoto /> */}
+                      <UploadPhoto />
                     </div>
                     <div className="settings__right">
                       <form className="settings__form" action="#">
