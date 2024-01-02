@@ -7,25 +7,13 @@ export const UploadPhoto = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (file) => {
-    // setSelectedFile(event.target.files[0]);
-    // setSelectedFile(file);
-    console.log("selected", file);
-    const formData = new FormData();
-    // formData.append("myFile", file);
-
+    // console.log("selected", file);
     setSelectedFile(file);
-    formData.append("file", file);
-    for (let [key, value] of formData.entries()) {
-      console.log(key);
-      console.log(value);
-      //   setSelectedFile(key);
-    }
-    setSelectedFile(formData);
   };
 
   const handleUploadClick = () => {
     if (selectedFile) {
-      console.log("formdata in Click", selectedFile);
+      //   console.log("formdata in Click", selectedFile);
       uploadAvatar(selectedFile);
     } else {
       console.error("No file selected");
@@ -43,7 +31,6 @@ export const UploadPhoto = () => {
           if (file) {
             handleFileChange(file);
           }
-          // handleFileChange
         }}
       />
       <div className="settings__change-photo" onClick={handleUploadClick}>

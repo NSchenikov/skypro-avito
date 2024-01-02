@@ -178,24 +178,16 @@ export const getMyAllAds = async () => {
   }
 };
 
-export function uploadAvatar(formData) {
+export function uploadAvatar(file) {
   let token = localStorage.getItem("refresh");
+  const data = new FormData();
+  data.append("file", file);
   fetch(`${baseUrl}/user/avatar`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
-      // "Content-Type":
-      //   "multipart/form-data; boundary=----WebKitFormBoundaryrmMyANW5BVRm90s",
-      "Content-Type":
-        "multipart/form-data; boundary=-------------573cf973d5228",
-      // "Content-Type": "multipart/form-data",
-      // "Content-Type": "undefined",
-      // "Content-Type": "application/json",
     },
-    // body: {
-    //   file: formData,
-    // },
-    body: formData,
+    body: data,
   })
     .then((response) => {
       if (response.status === 401) {

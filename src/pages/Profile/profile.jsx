@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
 import { AdvList } from "../../components/advList/AdvList";
 import { UploadPhoto } from "../../components/uploadPhoto/uploadPhoto";
-import { fetchCurrentUserData, getMyAllAds } from "../../API/api";
+import { fetchCurrentUserData, getMyAllAds, baseUrl } from "../../API/api";
 import "./profile.css";
 export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
@@ -56,17 +56,11 @@ export const Profile = () => {
                   <div className="profile__settings settings">
                     <div className="settings__left">
                       <div className="settings__img">
-                        <a href="/" target="_self">
-                          <img src="#" alt="pic" />
-                        </a>
+                        <img
+                          src={`${baseUrl}/${currentUserData.avatar}`}
+                          alt="pic"
+                        />
                       </div>
-                      {/* <div
-                        style={{ cursor: "pointer" }}
-                        className="settings__change-photo"
-                        target="_self"
-                      >
-                        Заменить
-                      </div> */}
                       <UploadPhoto />
                     </div>
                     <div className="settings__right">
