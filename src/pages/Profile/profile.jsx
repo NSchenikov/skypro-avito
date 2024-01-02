@@ -61,7 +61,7 @@ export const Profile = () => {
                           alt="pic"
                         />
                       </div>
-                      <UploadPhoto />
+                      <UploadPhoto setCurrentUserData={setCurrentUserData} />
                     </div>
                     <div className="settings__right">
                       <form className="settings__form" action="#">

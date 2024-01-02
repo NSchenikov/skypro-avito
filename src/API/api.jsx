@@ -211,8 +211,10 @@ export function uploadAvatar(file) {
     })
     .then((data) => {
       console.log("File uploaded successfully", data);
+      return data;
     })
     .catch((error) => {
       console.error("There was a problem with the file upload", error);
+      return error;
     });
 }

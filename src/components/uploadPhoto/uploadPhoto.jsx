@@ -3,7 +3,7 @@ import { useState } from "react";
 import { uploadAvatar } from "../../API/api";
 import "./uploadPhoto.css";
 
-export const UploadPhoto = () => {
+export const UploadPhoto = ({ setCurrentUserData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (file) => {
@@ -14,7 +14,10 @@ export const UploadPhoto = () => {
   const handleUploadClick = () => {
     if (selectedFile) {
       //   console.log("formdata in Click", selectedFile);
-      uploadAvatar(selectedFile);
+      uploadAvatar(selectedFile).then((data) => {
+        setCurrentUserData(data);
+        console.log(data);
+      });
     } else {
       console.error("No file selected");
     }
