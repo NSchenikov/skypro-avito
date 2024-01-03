@@ -3,18 +3,17 @@ import { useState } from "react";
 import { uploadAvatar } from "../../API/api";
 import "./uploadPhoto.css";
 
-export const UploadPhoto = ({ setCurrentUserData }) => {
+export const UploadPhoto = ({ setAvatarOnChange }) => {
   const [selectedFile, setSelectedFile] = useState(null);
-  const [sample, setSample] = useState(null);
 
   const handleFileChange = (file) => {
     setSelectedFile(file);
   };
 
-  const handleUploadClick = () => {
+  const handleUploadClick = async () => {
     if (selectedFile) {
-      setSample(uploadAvatar(selectedFile));
-      setCurrentUserData(sample);
+      const newImg = await uploadAvatar(selectedFile);
+      setAvatarOnChange(newImg);
     } else {
       console.error("No file selected");
     }

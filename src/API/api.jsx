@@ -107,6 +107,7 @@ export async function fetchCurrentUserData() {
     } else {
       const data = await response.json();
       // Обработка полученных данных
+      // console.log(" /user at fetchCurrentUserData with no 401");
       return data;
     }
   } catch (error) {
@@ -170,6 +171,7 @@ export const getMyAllAds = async () => {
       }
     } else {
       const data = await response.json();
+      // console.log("ads/me at getMyAllAds with no 401");
       return data;
     }
   } catch (error) {
@@ -178,7 +180,7 @@ export const getMyAllAds = async () => {
   }
 };
 
-export function uploadAvatar(file) {
+export async function uploadAvatar(file) {
   let token = localStorage.getItem("refresh");
   const data = new FormData();
   data.append("file", file);

@@ -8,17 +8,19 @@ import "./profile.css";
 export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
   const [myAds, setMyAds] = useState([]);
+  const [avatarOnChange, setAvatarOnChange] = useState("");
   let navigate = useNavigate();
 
   useEffect(() => {
     fetchCurrentUserData().then((data) => {
       setCurrentUserData(data);
+      setAvatarOnChange(data.avatar);
     });
     // console.log(currentUserData);
     getMyAllAds(localStorage.getItem("user")).then((data) => {
       setMyAds(data);
     });
-  }, [currentUserData]);
+  }, [avatarOnChange]);
 
   return (
     <div className="wrapper">
@@ -48,7 +50,7 @@ export const Profile = () => {
 
               <h2 className="main__h2">
                 {`Здравствуйте, ${
-                  currentUserData?.name ? currentUserData.name : null
+                  currentUserData ? currentUserData.name : null
                 }!`}
               </h2>
 
@@ -58,16 +60,14 @@ export const Profile = () => {
                   <div className="profile__settings settings">
                     <div className="settings__left">
                       <div className="settings__img">
-                        <img
-                          src={`${baseUrl}/${
-                            currentUserData?.avatar
-                              ? currentUserData.avatar
-                              : null
-                          }`}
-                          alt="pic"
-                        />
+                        {avatarOnChange && (
+                          <img
+                            src={`${baseUrl}/${currentUserData.avatar}`}
+                            alt="pic"
+                          />
+                        )}
                       </div>
-                      <UploadPhoto setCurrentUserData={setCurrentUserData} />
+                      <UploadPhoto setAvatarOnChange={setAvatarOnChange} />
                     </div>
                     <div className="settings__right">
                       <form className="settings__form" action="#">
@@ -79,9 +79,7 @@ export const Profile = () => {
                             name="fname"
                             type="text"
                             defaultValue={
-                              currentUserData?.name
-                                ? currentUserData.name
-                                : null
+                              currentUserData ? currentUserData.name : null
                             }
                             placeholder=""
                           />
@@ -95,9 +93,7 @@ export const Profile = () => {
                             name="lname"
                             type="text"
                             defaultValue={
-                              currentUserData?.surname
-                                ? currentUserData.surname
-                                : null
+                              currentUserData ? currentUserData.surname : null
                             }
                             placeholder=""
                           />
@@ -111,9 +107,7 @@ export const Profile = () => {
                             name="city"
                             type="text"
                             defaultValue={
-                              currentUserData?.city
-                                ? currentUserData.city
-                                : null
+                              currentUserData ? currentUserData.city : null
                             }
                             placeholder=""
                           />
@@ -126,7 +120,9 @@ export const Profile = () => {
                             id="settings-phone"
                             name="phone"
                             type="tel"
-                            defaultValue={currentUserData?.phone ?? ""}
+                            defaultValue={
+                              currentUserData ? currentUserData.phone : ""
+                            }
                             placeholder=""
                           />
                         </div>
