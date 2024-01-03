@@ -5,23 +5,21 @@ import "./uploadPhoto.css";
 
 export const UploadPhoto = ({ setCurrentUserData }) => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [sample, setSample] = useState(null);
 
   const handleFileChange = (file) => {
-    // console.log("selected", file);
     setSelectedFile(file);
   };
 
   const handleUploadClick = () => {
     if (selectedFile) {
-      //   console.log("formdata in Click", selectedFile);
-      uploadAvatar(selectedFile).then((data) => {
-        setCurrentUserData(data);
-        console.log(data);
-      });
+      setSample(uploadAvatar(selectedFile));
+      setCurrentUserData(sample);
     } else {
       console.error("No file selected");
     }
   };
+
   return (
     <>
       <input

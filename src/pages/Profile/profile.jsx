@@ -18,7 +18,7 @@ export const Profile = () => {
     getMyAllAds(localStorage.getItem("user")).then((data) => {
       setMyAds(data);
     });
-  }, []);
+  }, [currentUserData]);
 
   return (
     <div className="wrapper">
@@ -47,7 +47,9 @@ export const Profile = () => {
               </div>
 
               <h2 className="main__h2">
-                {`Здравствуйте, ${currentUserData.name}!`}
+                {`Здравствуйте, ${
+                  currentUserData?.name ? currentUserData.name : null
+                }!`}
               </h2>
 
               <div className="main__profile profile">
@@ -57,7 +59,11 @@ export const Profile = () => {
                     <div className="settings__left">
                       <div className="settings__img">
                         <img
-                          src={`${baseUrl}/${currentUserData.avatar}`}
+                          src={`${baseUrl}/${
+                            currentUserData?.avatar
+                              ? currentUserData.avatar
+                              : null
+                          }`}
                           alt="pic"
                         />
                       </div>
@@ -72,7 +78,11 @@ export const Profile = () => {
                             id="settings-fname"
                             name="fname"
                             type="text"
-                            defaultValue={currentUserData.name}
+                            defaultValue={
+                              currentUserData?.name
+                                ? currentUserData.name
+                                : null
+                            }
                             placeholder=""
                           />
                         </div>
@@ -84,7 +94,11 @@ export const Profile = () => {
                             id="settings-lname"
                             name="lname"
                             type="text"
-                            defaultValue={currentUserData.surname}
+                            defaultValue={
+                              currentUserData?.surname
+                                ? currentUserData.surname
+                                : null
+                            }
                             placeholder=""
                           />
                         </div>
@@ -96,7 +110,11 @@ export const Profile = () => {
                             id="settings-city"
                             name="city"
                             type="text"
-                            defaultValue={currentUserData.city}
+                            defaultValue={
+                              currentUserData?.city
+                                ? currentUserData.city
+                                : null
+                            }
                             placeholder=""
                           />
                         </div>
