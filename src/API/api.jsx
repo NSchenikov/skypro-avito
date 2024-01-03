@@ -220,3 +220,41 @@ export async function uploadAvatar(file) {
       return error;
     });
 }
+
+export const updateUserData = (formData) => {
+  let token = localStorage.getItem("refresh");
+  fetch(`${baseUrl}/user`, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        const refreshedToken = refreshAccessToken(token); //
+        if (refreshedToken) {
+          token = refreshedToken;
+          const updatedResponse = fetch(`${baseUrl}/user`, {
+            //
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${refreshedToken}`,
+            },
+          });
+          const data = updatedResponse.json(); //
+          return data;
+        }
+      } else {
+        const data = response.json(); //
+        return data;
+      }
+    })
+    .then((data) => {
+      console.log("Success:", data);
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
