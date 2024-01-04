@@ -9,16 +9,14 @@ import {
   baseUrl,
   updateUserData,
 } from "../../API/api";
-import { useAuth } from "../../Contexts/AuthContext";
 import "./profile.css";
 export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
   const [myAds, setMyAds] = useState([]);
   const [avatarOnChange, setAvatarOnChange] = useState("");
-  const { email } = useAuth();
   const [formData, setFormData] = useState({
     role: "user",
-    email: "admin@admin.com",
+    email: "user@example.com",
     name: currentUserData.name,
     surname: currentUserData.surname,
     phone: currentUserData.phone ? currentUserData.phone : "",
@@ -40,26 +38,35 @@ export const Profile = () => {
   useEffect(() => {
     setFormData({
       role: "user",
-      email: "admin@admin.com",
+      email: "user@example.com",
       name: currentUserData.name,
       surname: currentUserData.surname,
       phone: currentUserData.phone ? currentUserData.phone : "",
       city: currentUserData.city,
     });
-  }, [currentUserData, email]);
+  }, [currentUserData]);
 
   const handleSubmit = (e) => {
-    //
-    e.preventDefault();
-    updateUserData(
+    console.log(
       formData.role,
       formData.email,
       formData.name,
       formData.surname,
       formData.phone,
       formData.city
-      // formData
-    );
+    ); //not empty values
+    console.log(
+      typeof formData.role,
+      typeof formData.email,
+      typeof formData.name,
+      typeof formData.surname,
+      typeof formData.phone,
+      typeof formData.city
+    ); //not empty values
+    e.preventDefault();
+    const jsonFormData = JSON.stringify(formData);
+    console.log(jsonFormData);
+    updateUserData(jsonFormData);
   };
 
   const handleNameChange = (e) => {
