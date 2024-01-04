@@ -62,7 +62,7 @@ export const Profile = () => {
       typeof formData.surname,
       typeof formData.phone,
       typeof formData.city
-    ); //not empty values
+    ); //everything string
     e.preventDefault();
     const jsonFormData = JSON.stringify(formData);
     console.log(jsonFormData);

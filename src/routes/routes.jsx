@@ -6,7 +6,6 @@ import { Profile } from "../pages/Profile/profile";
 import { AdvPage } from "../pages/AdvPage/AdvPage";
 import { MyAdvPage } from "../pages/myAdvPage/MyAdvPage";
 import { SellerProfile } from "../pages/sellerProfile/sellerProfile";
-import { AddNewAdv } from "../pages/addNewAdv/addNewAdv";
 import { NotFound } from "../pages/NotFound/NotFound";
 import { ProtectedRoute } from "./protectedRoute";
 
@@ -31,14 +30,6 @@ export const AppRoutes = ({ user }) => {
         element={
           <ProtectedRoute user={user} isAllowed={Boolean(user)}>
             <MyAdvPage />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/addnewadv"
-        element={
-          <ProtectedRoute user={user} isAllowed={Boolean(user)}>
-            <AddNewAdv />
           </ProtectedRoute>
         }
       />
