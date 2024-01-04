@@ -15,10 +15,10 @@ export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
   const [myAds, setMyAds] = useState([]);
   const [avatarOnChange, setAvatarOnChange] = useState("");
-  const { authUser } = useAuth();
+  const { email } = useAuth();
   const [formData, setFormData] = useState({
-    role: currentUserData.role,
-    email: authUser,
+    role: "user",
+    email: "admin@admin.com",
     name: currentUserData.name,
     surname: currentUserData.surname,
     phone: currentUserData.phone ? currentUserData.phone : "",
@@ -39,19 +39,27 @@ export const Profile = () => {
 
   useEffect(() => {
     setFormData({
-      role: currentUserData.role,
-      email: authUser,
+      role: "user",
+      email: "admin@admin.com",
       name: currentUserData.name,
       surname: currentUserData.surname,
       phone: currentUserData.phone ? currentUserData.phone : "",
       city: currentUserData.city,
     });
-  }, [currentUserData, authUser]);
+  }, [currentUserData, email]);
 
   const handleSubmit = (e) => {
     //
     e.preventDefault();
-    updateUserData(formData);
+    updateUserData(
+      formData.role,
+      formData.email,
+      formData.name,
+      formData.surname,
+      formData.phone,
+      formData.city
+      // formData
+    );
   };
 
   const handleNameChange = (e) => {

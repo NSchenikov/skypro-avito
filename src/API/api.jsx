@@ -221,7 +221,15 @@ export async function uploadAvatar(file) {
     });
 }
 
-export const updateUserData = (formData) => {
+export const updateUserData = ({
+  role,
+  email,
+  name,
+  surname,
+  phone,
+  city,
+  // formData,
+}) => {
   let token = localStorage.getItem("refresh");
   fetch(`${baseUrl}/user`, {
     method: "PATCH",
@@ -229,7 +237,15 @@ export const updateUserData = (formData) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: {
+      role: role,
+      email: "user@example.com",
+      name: name,
+      surname: surname,
+      phone: phone,
+      city: city,
+    },
+    // JSON.stringify(formData),
   })
     .then((response) => {
       if (response.status === 401) {
@@ -253,6 +269,7 @@ export const updateUserData = (formData) => {
     })
     .then((data) => {
       console.log("Success:", data);
+      return data;
     })
     .catch((error) => {
       console.error("Error:", error);
