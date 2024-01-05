@@ -35,6 +35,7 @@ export const Login = () => {
         setUser("user", res.access_token, "refresh", res.refresh_token);
         setIsLoggedIn(true);
         setAuthUser(email);
+        localStorage.setItem("mail", email);
         console.log(authUser);
         setLoading(false);
         console.log(res);

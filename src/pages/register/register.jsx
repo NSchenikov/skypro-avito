@@ -47,6 +47,7 @@ export const Register = () => {
               setUser("user", res.access_token, "refresh", res.refresh_token);
               setIsLoggedIn(true);
               setAuthUser(email);
+              localStorage.setItem("mail", email);
             })
             .then(() => setLoading(false));
         })

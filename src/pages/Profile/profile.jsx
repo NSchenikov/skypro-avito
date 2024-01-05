@@ -14,9 +14,10 @@ export const Profile = () => {
   const [currentUserData, setCurrentUserData] = useState([]);
   const [myAds, setMyAds] = useState([]);
   const [avatarOnChange, setAvatarOnChange] = useState("");
+  let email = localStorage.getItem("mail");
   const [formData, setFormData] = useState({
     role: "user",
-    email: "user@example.com",
+    email: email,
     name: currentUserData.name,
     surname: currentUserData.surname,
     phone: currentUserData.phone ? currentUserData.phone : "",
@@ -38,35 +39,17 @@ export const Profile = () => {
   useEffect(() => {
     setFormData({
       role: "user",
-      email: "user@example.com",
+      email: email,
       name: currentUserData.name,
       surname: currentUserData.surname,
       phone: currentUserData.phone ? currentUserData.phone : "",
       city: currentUserData.city,
     });
-  }, [currentUserData]);
+  }, [currentUserData, email]);
 
   const handleSubmit = (e) => {
-    console.log(
-      formData.role,
-      formData.email,
-      formData.name,
-      formData.surname,
-      formData.phone,
-      formData.city
-    ); //not empty values
-    console.log(
-      typeof formData.role,
-      typeof formData.email,
-      typeof formData.name,
-      typeof formData.surname,
-      typeof formData.phone,
-      typeof formData.city
-    ); //everything string
     e.preventDefault();
-    const jsonFormData = JSON.stringify(formData);
-    console.log(jsonFormData);
-    updateUserData(jsonFormData);
+    updateUserData({ formData });
   };
 
   const handleNameChange = (e) => {

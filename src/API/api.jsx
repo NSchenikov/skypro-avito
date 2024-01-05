@@ -223,14 +223,14 @@ export async function uploadAvatar(file) {
 
 export const updateUserData = ({ formData }) => {
   let token = localStorage.getItem("refresh");
-  // console.log(JSON.stringify(formData));
+  const jsonBody = JSON.stringify(formData);
   fetch(`${baseUrl}/user`, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: formData,
+    body: jsonBody,
   })
     .then((response) => {
       if (response.status === 401) {
