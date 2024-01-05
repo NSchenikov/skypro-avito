@@ -20,7 +20,10 @@ export const AdvList = ({ ads }) => {
   const navigate = useNavigate();
 
   return ads.map((ad, index) => {
-    let imgUrl = ad.images.length !== 0 ? `${baseUrl}${ad.images[0].url}` : "";
+    let imgUrl =
+      ad.images.length !== 0
+        ? `${baseUrl}${ad.images[0].url}`
+        : "/img/ad_images/nophoto.png";
 
     let date = new Date(ad.created_on);
     let day = date.getDate();
