@@ -331,6 +331,7 @@ a {
   margin-right: 10px;
   position: relative;
   z-index: 0;
+  cursor: pointer;
 }
 
 .form-newArt__img img {
@@ -586,6 +587,7 @@ a {
     height: 90px;
     background-color: #f0f0f0;
     margin: 0 5px;
+    cursor: pointer;
   }
   .form-newArt__img img {
     display: block;
@@ -593,6 +595,7 @@ a {
     height: auto;
     -o-object-fit: cover;
     object-fit: cover;
+    cursor: pointer;
   }
   .form-newArt__input-price-cover {
     width: 21px;

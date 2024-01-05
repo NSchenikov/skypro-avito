@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { createAddWithNoImg } from "../../API/api";
+import { UploadAdvPhotos } from "../uploadAdvPhotos/uploadAdvPhotos";
 import "./addnewat.css";
 
 export const AddNewAdv = ({ onAddAdvShow }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -20,6 +22,10 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
   const handlePriceChange = (e) => {
     const newPrice = parseFloat(e.target.value);
     setPrice(newPrice);
+  };
+
+  const handleFileChange = (file) => {
+    setSelectedFiles([...selectedFiles, file]);
   };
 
   const handleSubmit = (e) => {
@@ -71,28 +77,16 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
           <p className="form-newArt__p">
             Фотографии товара<span>не более 5 фотографий</span>
           </p>
-          <div className="form-newArt__bar-img">
-            <div className="form-newArt__img">
-              <img src="" alt="" />
-              <div className="form-newArt__img-cover"></div>
-            </div>
-            <div className="form-newArt__img">
-              <img src="" alt="" />
-              <div className="form-newArt__img-cover"></div>
-            </div>
+          {/* <div className="form-newArt__bar-img">
             <div className="form-newArt__img">
               <div className="form-newArt__img-cover"></div>
               <img src="" alt="" />
             </div>
-            <div className="form-newArt__img">
-              <div className="form-newArt__img-cover"></div>
-              <img src="" alt="" />
-            </div>
-            <div className="form-newArt__img">
-              <div className="form-newArt__img-cover"></div>
-              <img src="" alt="" />
-            </div>
-          </div>
+          </div> */}
+          <UploadAdvPhotos
+            selectedFiles={selectedFiles}
+            handleFileChange={handleFileChange}
+          />
         </div>
         <div className="form-newArt__block block-price">
           <label htmlFor="price">Цена</label>
