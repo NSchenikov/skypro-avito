@@ -260,3 +260,44 @@ export const updateUserData = ({ formData }) => {
       console.error("Error:", error);
     });
 };
+
+export const createAddWithNoImg = ({ data }) => {
+  let token = localStorage.getItem("refresh");
+  const jsonBody = JSON.stringify(data);
+  console.log(jsonBody);
+  fetch(`${baseUrl}/adstext`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: jsonBody,
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        const refreshedToken = refreshAccessToken(token); //
+        if (refreshedToken) {
+          token = refreshedToken;
+          const updatedResponse = fetch(`${baseUrl}/user`, {
+            //
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${refreshedToken}`,
+            },
+          });
+          const data = updatedResponse.json(); //
+          return data;
+        }
+      } else {
+        const data = response.json(); //
+        return data;
+      }
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
