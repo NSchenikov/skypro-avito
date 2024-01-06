@@ -1,102 +1,59 @@
 import { useEffect } from "react";
 import "./uploadAdvPhotos.css";
 
-export const UploadAdvPhotos = ({ selectedFiles, handleFileChange }) => {
+export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
   useEffect(() => {
     console.log(selectedFiles);
   }, [selectedFiles]);
 
+  const handleFileChange = (e) => {
+    const files = Array.from(e.target.files);
+
+    if (selectedFiles.length + files.length <= 5) {
+      const newImages = files.map((file) => ({
+        id: Date.now(),
+        url: URL.createObjectURL(file),
+      }));
+
+      setSelectedFiles([...selectedFiles, ...newImages]);
+    } else {
+      alert("Максимальное количество изображений - 5");
+    }
+  };
+
   return (
     <>
-      {selectedFiles.lenght ? (
-        selectedFiles.map(
-          (photo, index) => {
-            return (
-              <div className="form-newArt__bar-img" key={index}>
-                <div className="form-newArt__img image-upload">
-                  <label htmlFor="file-input">
-                    <div className="form-newArt__img-cover"></div>
-                  </label>
-                  <input
-                    id="file-input"
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    onChange={(e) => {
-                      e.preventDefault();
-                      const file = e.target.files?.[index];
-                      if (file) {
-                        handleFileChange(file);
-                      }
-                    }}
-                  />
-                  <img src={photo.name} alt="" />
-                </div>
-              </div>
-            );
-          },
+      {selectedFiles.length < 5 && (
+        <>
           <div className="form-newArt__bar-img">
-            <div className="form-newArt__img image-upload">
+            {selectedFiles.map((image, index) => (
+              <div className="form-newArt__img image-upload" key={index}>
+                <label htmlFor="file-input">
+                  <div className="form-newArt__img-cover"></div>
+                </label>
+                <img src={image.url} alt="" />
+              </div>
+            ))}
+            <div
+              className="form-newArt__img image-upload"
+              onClick={() => document.getElementById("fileInput").click()}
+            >
               <label htmlFor="file-input">
                 <div className="form-newArt__img-cover"></div>
               </label>
               <input
-                id="file-input"
+                id="fileInput"
                 type="file"
-                accept="image/png, image/jpeg"
-                onChange={(e) => {
-                  e.preventDefault();
-                  const file = e.target.files?.[selectedFiles.lenght + 1];
-                  if (file) {
-                    handleFileChange(file);
-                  }
-                }}
+                accept="image/*"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+                multiple
               />
               <img src="" alt="" />
             </div>
           </div>
-        )
-      ) : (
-        <div className="form-newArt__bar-img">
-          <div className="form-newArt__img image-upload">
-            <label htmlFor="file-input">
-              <div className="form-newArt__img-cover"></div>
-            </label>
-            <input
-              id="file-input"
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={(e) => {
-                e.preventDefault();
-                const file = e.target.files?.[0];
-                if (file) {
-                  handleFileChange(file);
-                }
-              }}
-            />
-            <img src="" alt="" />
-          </div>
-        </div>
+        </>
       )}
-      {/* <div className="form-newArt__bar-img">
-        <div className="form-newArt__img image-upload">
-          <label htmlFor="file-input">
-            <div className="form-newArt__img-cover"></div>
-          </label>
-          <input
-            id="file-input"
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={(e) => {
-              e.preventDefault();
-              const file = e.target.files?.[0];
-              if (file) {
-                handleFileChange(file);
-              }
-            }}
-          />
-          <img src="" alt="" />
-        </div>
-      </div> */}
     </>
   );
 };

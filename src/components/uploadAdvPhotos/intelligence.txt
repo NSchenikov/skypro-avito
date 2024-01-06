@@ -1,0 +1,60 @@
+напиши мне функцию с элементом-изображением, при клике на который работает input с типом 'file' и появляется возможность загрузить картинку в инпут. При этом после загрузки картинки в ряд рендерится мини вариант загруженной картинки и исходный элемент-изображение, при клике на который таким же образом можно загрузить еще одну картинку. Должна быть загрузка максимум 5 изображений
+
+
+
+
+
+
+Извините за недостаточно ясное объяснение. Я понимаю ваш запрос - вам нужна ясная демонстрация написанного кода. Вот исправленный пример с более четкими тегами после команды return:
+
+
+
+```jsx
+import React, { useState } from 'react';
+
+const ImageUpload = () => {
+const [images, setImages] = useState([]);
+
+const handleImageChange = (e) => {
+const files = Array.from(e.target.files);
+
+if (images.length + files.length <= 5) {
+const newImages = files.map((file) => ({
+id: Date.now(),
+url: URL.createObjectURL(file)
+}));
+
+setImages([...images, ...newImages]);
+} else {
+alert("Максимальное количество изображений - 5");
+}
+}
+
+return (
+
+{images.map((image) => (
+Предварительный просмотр
+))}
+{images.length < 5 && (
+
+src="placeholder.jpg"
+alt="Выберите картинку"
+onClick={() => document.getElementById("fileInput").click()}
+/>
+
+)}
+type="file"
+id="fileInput"
+accept="image/*"
+style={{ display: "none" }}
+onChange={handleImageChange}
+multiple
+/>
+
+);
+}
+
+export default ImageUpload;
+```
+
+В этом обновлённом примере после команды return проставлены теги JSX, чтобы показать явно, какие компоненты отрисовываются на странице. После выбора изображений они отображаются в миниатюре ниже, с учётом ограничения до 5 изображений.

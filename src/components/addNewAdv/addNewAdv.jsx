@@ -24,10 +24,6 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
     setPrice(newPrice);
   };
 
-  const handleFileChange = (file) => {
-    setSelectedFiles([...selectedFiles, file]);
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { title, description, price };
@@ -85,7 +81,7 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
           </div> */}
           <UploadAdvPhotos
             selectedFiles={selectedFiles}
-            handleFileChange={handleFileChange}
+            setSelectedFiles={setSelectedFiles}
           />
         </div>
         <div className="form-newArt__block block-price">
