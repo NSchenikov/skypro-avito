@@ -34,7 +34,7 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
       createAddWithNoImg({ data });
       onAddAdvShow(false);
     } else {
-      createAdvWithImg({ data, selectedFiles });
+      createAdvWithImg({ data, imgObj: data });
       onAddAdvShow(false);
       setSelectedFiles([]);
     }

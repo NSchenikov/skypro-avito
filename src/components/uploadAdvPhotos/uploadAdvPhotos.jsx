@@ -4,15 +4,16 @@ import "./uploadAdvPhotos.css";
 export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
   useEffect(() => {
     console.log(selectedFiles);
+    // localStorage.setItem("imgs", selectedFiles);
   }, [selectedFiles]);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-
     if (selectedFiles.length + files.length <= 5) {
       const newImages = files.map((file) => ({
         id: Date.now(),
         url: URL.createObjectURL(file),
+        file: file,
       }));
 
       setSelectedFiles([...selectedFiles, ...newImages]);

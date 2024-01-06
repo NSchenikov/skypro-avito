@@ -347,11 +347,15 @@ export const createAddWithNoImg = ({ data }) => {
 //     });
 // };
 
-export const addImagesToAdv = ({ file, id }) => {
+export const addImagesToAdv = ({ fl, identifcator }) => {
   let token = localStorage.getItem("refresh");
   const photo = new FormData();
-  photo.append("file", file);
-  fetch(`${baseUrl}/ads/${id}/image`, {
+  console.log(fl);
+  console.log(identifcator);
+  photo.append("pk", fl.id);
+  photo.append("path", fl.name);
+  photo.append("file", fl);
+  fetch(`${baseUrl}/ads/${identifcator}/image`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -361,7 +365,7 @@ export const addImagesToAdv = ({ file, id }) => {
   })
     .then((response) => {
       if (response.status === 401) {
-        const refreshedToken = refreshAccessToken(token); //
+        const refreshedToken = refreshAccessToken(token);
         if (refreshedToken) {
           token = refreshedToken;
           const updatedResponse = fetch(`${baseUrl}/user`, {
@@ -371,11 +375,11 @@ export const addImagesToAdv = ({ file, id }) => {
               Authorization: `Bearer ${refreshedToken}`,
             },
           });
-          const data = updatedResponse.json(); //
+          const data = updatedResponse.json();
           return data;
         }
       } else {
-        const data = response.json(); //
+        const data = response.json();
         return data;
       }
     })
@@ -391,7 +395,7 @@ export const addImagesToAdv = ({ file, id }) => {
 export const createAdvWithImg = ({ data, imgObj }) => {
   let token = localStorage.getItem("refresh");
   const jsonBody = JSON.stringify(data);
-  console.log(jsonBody);
+  // console.log(jsonBody);
   fetch(`${baseUrl}/adstext`, {
     method: "POST",
     headers: {
@@ -402,7 +406,7 @@ export const createAdvWithImg = ({ data, imgObj }) => {
   })
     .then((response) => {
       if (response.status === 401) {
-        const refreshedToken = refreshAccessToken(token); //
+        const refreshedToken = refreshAccessToken(token);
         if (refreshedToken) {
           token = refreshedToken;
           const updatedResponse = fetch(`${baseUrl}/user`, {
@@ -412,17 +416,21 @@ export const createAdvWithImg = ({ data, imgObj }) => {
               Authorization: `Bearer ${refreshedToken}`,
             },
           });
-          const data = updatedResponse.json(); //
+          const data = updatedResponse.json();
           return data;
         }
       } else {
-        const data = response.json(); //
+        const data = response.json();
         return data;
       }
     })
     .then((data) => {
       console.log("Success:", data);
-      addImagesToAdv(imgObj[0], data.id); //try to pass imgObj but undefined
+      console.log(data.id);
+      Object.keys(imgObj).forEach((key) => {
+        addImagesToAdv({ fl: imgObj[key], identificator: data.id });
+      });
+
       return data;
     })
     .catch((error) => {
