@@ -295,6 +295,134 @@ export const createAddWithNoImg = ({ data }) => {
     })
     .then((data) => {
       console.log("Success:", data);
+      // localStorage.setItem("advId", data.id);
+      // console.log("storage in api", localStorage.getItem("advId"));
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+// export const createAddWithImg = ({ data, files }) => {
+//   let token = localStorage.getItem("refresh");
+//   const photos = new FormData();
+//   photos.append("file", files);
+//   const jsonBody = JSON.stringify(data);
+//   console.log(jsonBody);
+//   fetch(`${baseUrl}/ads`, {
+//     method: "POST",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//     body: { jsonBody, photos },
+//   })
+//     .then((response) => {
+//       if (response.status === 401) {
+//         const refreshedToken = refreshAccessToken(token); //
+//         if (refreshedToken) {
+//           token = refreshedToken;
+//           const updatedResponse = fetch(`${baseUrl}/user`, {
+//             //
+//             method: "GET",
+//             headers: {
+//               Authorization: `Bearer ${refreshedToken}`,
+//             },
+//           });
+//           const data = updatedResponse.json(); //
+//           return data;
+//         }
+//       } else {
+//         const data = response.json(); //
+//         return data;
+//       }
+//     })
+//     .then((data) => {
+//       console.log("Success:", data);
+//       return data;
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//     });
+// };
+
+export const addImagesToAdv = ({ file, id }) => {
+  let token = localStorage.getItem("refresh");
+  const photo = new FormData();
+  photo.append("file", file);
+  fetch(`${baseUrl}/ads/${id}/image`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: photo,
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        const refreshedToken = refreshAccessToken(token); //
+        if (refreshedToken) {
+          token = refreshedToken;
+          const updatedResponse = fetch(`${baseUrl}/user`, {
+            //
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${refreshedToken}`,
+            },
+          });
+          const data = updatedResponse.json(); //
+          return data;
+        }
+      } else {
+        const data = response.json(); //
+        return data;
+      }
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+};
+
+export const createAdvWithImg = ({ data, imgObj }) => {
+  let token = localStorage.getItem("refresh");
+  const jsonBody = JSON.stringify(data);
+  console.log(jsonBody);
+  fetch(`${baseUrl}/adstext`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: jsonBody,
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        const refreshedToken = refreshAccessToken(token); //
+        if (refreshedToken) {
+          token = refreshedToken;
+          const updatedResponse = fetch(`${baseUrl}/user`, {
+            //
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${refreshedToken}`,
+            },
+          });
+          const data = updatedResponse.json(); //
+          return data;
+        }
+      } else {
+        const data = response.json(); //
+        return data;
+      }
+    })
+    .then((data) => {
+      console.log("Success:", data);
+      addImagesToAdv(imgObj[0], data.id); //try to pass imgObj but undefined
       return data;
     })
     .catch((error) => {

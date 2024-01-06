@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createAddWithNoImg } from "../../API/api";
+import { createAddWithNoImg, createAdvWithImg } from "../../API/api";
 import { UploadAdvPhotos } from "../uploadAdvPhotos/uploadAdvPhotos";
 import "./addnewat.css";
 
@@ -20,22 +20,36 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
   };
 
   const handlePriceChange = (e) => {
-    const newPrice = parseFloat(e.target.value);
-    setPrice(newPrice);
+    const inputValue = e.target.value;
+    if (!isNaN(inputValue)) {
+      const newPrice = Number(inputValue);
+      setPrice(newPrice);
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { title, description, price };
-    console.log(data);
-    createAddWithNoImg({ data });
-    onAddAdvShow(false);
+    if (!selectedFiles.length) {
+      createAddWithNoImg({ data });
+      onAddAdvShow(false);
+    } else {
+      createAdvWithImg({ data, selectedFiles });
+      onAddAdvShow(false);
+      setSelectedFiles([]);
+    }
   };
 
   return (
     <div className="modal__content">
       <h3 className="modal__title">Новое объявление</h3>
-      <div className="modal__btn-close" onClick={() => onAddAdvShow(false)}>
+      <div
+        className="modal__btn-close"
+        onClick={() => {
+          onAddAdvShow(false);
+          setSelectedFiles([]);
+        }}
+      >
         <div className="modal__btn-close-line"></div>
       </div>
       <form
@@ -73,12 +87,6 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
           <p className="form-newArt__p">
             Фотографии товара<span>не более 5 фотографий</span>
           </p>
-          {/* <div className="form-newArt__bar-img">
-            <div className="form-newArt__img">
-              <div className="form-newArt__img-cover"></div>
-              <img src="" alt="" />
-            </div>
-          </div> */}
           <UploadAdvPhotos
             selectedFiles={selectedFiles}
             setSelectedFiles={setSelectedFiles}

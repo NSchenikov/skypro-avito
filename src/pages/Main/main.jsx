@@ -33,7 +33,7 @@ export const Main = () => {
 
             <div className="main__content">
               <div className="cards">
-                <AdvList ads={filteredAds} />;
+                <AdvList ads={filteredAds} />
               </div>
             </div>
           </div>
