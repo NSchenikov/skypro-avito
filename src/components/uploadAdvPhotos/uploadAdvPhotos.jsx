@@ -24,35 +24,45 @@ export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
   return (
     <>
       {selectedFiles.length < 5 && (
-        <>
-          <div className="form-newArt__bar-img">
-            {selectedFiles.map((image, index) => (
-              <div className="form-newArt__img image-upload" key={index}>
-                <label htmlFor="file-input">
-                  <div className="form-newArt__img-cover"></div>
-                </label>
-                <img src={image.url} alt="" />
-              </div>
-            ))}
-            <div
-              className="form-newArt__img image-upload"
-              onClick={() => document.getElementById("fileInput").click()}
-            >
+        <div className="form-newArt__bar-img">
+          {selectedFiles.map((image, index) => (
+            <div className="form-newArt__img image-upload" key={index}>
               <label htmlFor="file-input">
                 <div className="form-newArt__img-cover"></div>
               </label>
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                style={{ display: "none" }}
-                onChange={handleFileChange}
-                multiple
-              />
-              <img src="" alt="" />
+              <img src={image.url} alt="" />
             </div>
+          ))}
+          <div
+            className="form-newArt__img image-upload"
+            onClick={() => document.getElementById("fileInput").click()}
+          >
+            <label htmlFor="file-input">
+              <div className="form-newArt__img-cover"></div>
+            </label>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleFileChange}
+              multiple
+            />
+            <img src="" alt="" />
           </div>
-        </>
+        </div>
+      )}
+      {selectedFiles.length === 5 && (
+        <div className="form-newArt__bar-img">
+          {selectedFiles.map((image, index) => (
+            <div className="form-newArt__img image-upload" key={index}>
+              <label htmlFor="file-input">
+                <div className="form-newArt__img-cover"></div>
+              </label>
+              <img src={image.url} alt="" />
+            </div>
+          ))}
+        </div>
       )}
     </>
   );
