@@ -33,23 +33,24 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const data = { title, description, price };
-    if (!selectedFiles.length) {
-      createAddWithNoImg({ data });
-      onAddAdvShow(false);
-    } else {
-      // createAdvWithImg({ data, imgObj: data });
-      const formData = new FormData();
-      selectedFiles.forEach((image, index) => {
-        formData.append(`image${index + 1}`, image);
-      });
-      addImagesToAdv({
-        file: formData,
-        data: [{ title, description, price }],
-      });
-      onAddAdvShow(false);
-      setSelectedFiles([]);
-    }
+    // const data = { title, description, price };
+    // if (!selectedFiles.length) {
+    //   createAddWithNoImg({ data });
+    //   onAddAdvShow(false);
+    // } else {
+    // createAdvWithImg({ data, imgObj: data });
+    const formData = new FormData();
+    selectedFiles.forEach((image, index) => {
+      formData.append(`image${index + 1}`, image.url);
+    });
+    console.log(title, description, price);
+    addImagesToAdv({
+      file: formData,
+      data: [{ title, description, price }],
+    });
+    onAddAdvShow(false);
+    setSelectedFiles([]);
+    // }
   };
 
   return (

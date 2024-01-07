@@ -350,10 +350,15 @@ export const createAddWithNoImg = ({ data }) => {
 export const addImagesToAdv = ({ file, data }) => {
   let token = localStorage.getItem("refresh");
   console.log(data);
+  for (let pair of file.entries()) {
+    console.log(pair[0] + ", " + pair[1]);
+  }
   const searchParams = new URLSearchParams();
-  searchParams.append("title", data.title);
-  searchParams.append("description", data.description);
-  searchParams.append("price", data.price);
+  searchParams.append("title", data[0].title);
+  searchParams.append("description", data[0].description);
+  searchParams.append("price", data[0].price);
+  console.log("ценник", data[0].title);
+  console.log("ценник type", typeof data[0].title);
   // for (const key in data) {
   //   searchParams.append(key, data[key]);
   // }
@@ -365,6 +370,7 @@ export const addImagesToAdv = ({ file, data }) => {
 
   for (let i = 1; i < length - 2; i++) {
     formData.append(`files`, file.get(`image${i}`));
+    console.log("form", formData);
   }
 
   fetch(`${baseUrl}/ads?${searchParams.toString()}`, {
