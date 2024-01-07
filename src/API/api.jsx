@@ -1,3 +1,4 @@
+import axios from "axios";
 export const baseUrl = "http://localhost:8090";
 
 export async function getAds() {
@@ -347,12 +348,48 @@ export const createAddWithNoImg = ({ data }) => {
 //     });
 // };
 
+export const addAdvA = async ({ file, imgs }) => {
+  let token = localStorage.getItem("refresh");
+  const searchParams = new URLSearchParams();
+  searchParams.append("title", file.get(`title`));
+  searchParams.append("description", file.get(`description`));
+  searchParams.append("price", file.get(`price`));
+
+  const formData = new FormData();
+  const arrData = [...imgs];
+  const length = arrData.length;
+
+  for (let i = 1; i < length - 2; i++) {
+    formData.append(`files`, imgs.get(`image${i}`));
+  }
+
+  try {
+    const response = await axios.post(
+      `${baseUrl}/ads?${searchParams.toString()}`,
+      imgs,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    console.log("Success:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};
+
 export const addImagesToAdv = ({
   file,
+  imgs,
   // data
 }) => {
   let token = localStorage.getItem("refresh");
   console.log(file);
+  console.log("каритнки", imgs);
   for (let pair of file.entries()) {
     console.log(pair[0] + ", " + pair[1].name);
   }
@@ -368,11 +405,11 @@ export const addImagesToAdv = ({
 
   const formData = new FormData();
 
-  const arrData = [...file];
+  const arrData = [...imgs];
   const length = arrData.length;
 
   for (let i = 1; i < length - 2; i++) {
-    formData.append(`files`, file.get(`image${i}`));
+    formData.append(`files`, imgs.get(`image${i}`));
   }
 
   fetch(`${baseUrl}/ads?${searchParams.toString()}`, {
@@ -381,7 +418,12 @@ export const addImagesToAdv = ({
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: formData,
+    body: {
+      // title: file.get(`title`),
+      // description: file.get(`description`),
+      // price: file.get(`price`),
+      files: formData,
+    },
   })
     .then((response) => {
       // if (response.status === 401) {

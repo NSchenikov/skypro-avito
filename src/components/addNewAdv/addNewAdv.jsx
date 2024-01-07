@@ -3,7 +3,9 @@ import {
   createAddWithNoImg,
   createAdvWithImg,
   addImagesToAdv,
+  addAdvA,
 } from "../../API/api";
+import { useAddImagesToAdvMutation } from "../../services/ads";
 import { UploadAdvPhotos } from "../uploadAdvPhotos/uploadAdvPhotos";
 import "./addnewat.css";
 
@@ -12,6 +14,7 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState([]);
+  const [addImagesToAdv] = useAddImagesToAdvMutation();
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -31,7 +34,7 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // const data = { title, description, price };
     // if (!selectedFiles.length) {
@@ -43,15 +46,20 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
     formData.append("title", title);
     formData.append("description", description);
     formData.append("price", price);
+    const imgs = [];
     selectedFiles.forEach((image, index) => {
       console.log(image.file);
       formData.append(`image${index + 1}`, image.file);
+      imgs.push(image.file);
     });
     console.log(title, description, price);
-    addImagesToAdv({
-      file: formData,
-      // data: [{ title, description, price }],
-    });
+    // addImagesToAdv({
+    //   file: formData,
+    //   // data: [{ title, description, price }],
+    //   imgs: imgs,
+    // });
+    // addAdvA({ file: formData, imgs: imgs });
+    await addImagesToAdv({ file: formData }).unwrap();
     onAddAdvShow(false);
     setSelectedFiles([]);
     // }

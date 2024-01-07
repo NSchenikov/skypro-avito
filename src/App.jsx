@@ -2,6 +2,8 @@ import { AppRoutes } from "../src/routes/routes";
 import { useState } from "react";
 import { AuthProvider } from "./Contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -13,16 +15,18 @@ function App() {
     navigate("/login", { replace: true });
   };
   return (
-    <AuthProvider>
-      <div className="App">
-        <div className="App-layout">
-          <AppRoutes
-            user={user}
-            onAuthButtonClick={user ? handleLogout : handleLogin}
-          ></AppRoutes>
+    <Provider store={store}>
+      <AuthProvider>
+        <div className="App">
+          <div className="App-layout">
+            <AppRoutes
+              user={user}
+              onAuthButtonClick={user ? handleLogout : handleLogin}
+            ></AppRoutes>
+          </div>
         </div>
-      </div>
-    </AuthProvider>
+      </AuthProvider>
+    </Provider>
   );
 }
 
