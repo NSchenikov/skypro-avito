@@ -4,7 +4,6 @@ import "./uploadAdvPhotos.css";
 export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
   useEffect(() => {
     console.log(selectedFiles);
-    // localStorage.setItem("imgs", selectedFiles);
   }, [selectedFiles]);
 
   const handleFileChange = (e) => {
@@ -20,7 +19,6 @@ export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
     } else {
       alert("Максимальное количество изображений - 5");
     }
-    // setSelectedFiles(files);
   };
 
   return (
