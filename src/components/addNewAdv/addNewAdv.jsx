@@ -40,13 +40,17 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
     // } else {
     // createAdvWithImg({ data, imgObj: data });
     const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("price", price);
     selectedFiles.forEach((image, index) => {
-      formData.append(`image${index + 1}`, image.url);
+      console.log(image.file);
+      formData.append(`image${index + 1}`, image.file);
     });
     console.log(title, description, price);
     addImagesToAdv({
       file: formData,
-      data: [{ title, description, price }],
+      // data: [{ title, description, price }],
     });
     onAddAdvShow(false);
     setSelectedFiles([]);

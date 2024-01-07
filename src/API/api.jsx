@@ -347,30 +347,32 @@ export const createAddWithNoImg = ({ data }) => {
 //     });
 // };
 
-export const addImagesToAdv = ({ file, data }) => {
+export const addImagesToAdv = ({
+  file,
+  // data
+}) => {
   let token = localStorage.getItem("refresh");
-  console.log(data);
+  console.log(file);
   for (let pair of file.entries()) {
-    console.log(pair[0] + ", " + pair[1]);
+    console.log(pair[0] + ", " + pair[1].name);
   }
   const searchParams = new URLSearchParams();
-  searchParams.append("title", data[0].title);
-  searchParams.append("description", data[0].description);
-  searchParams.append("price", data[0].price);
-  console.log("ценник", data[0].title);
-  console.log("ценник type", typeof data[0].title);
+  searchParams.append("title", file.get(`title`));
+  searchParams.append("description", file.get(`description`));
+  searchParams.append("price", file.get(`price`));
+  // console.log("title", data[0].title);
+  // console.log("tile type", typeof data[0].title);
   // for (const key in data) {
   //   searchParams.append(key, data[key]);
   // }
 
   const formData = new FormData();
 
-  const arrData = [...data];
+  const arrData = [...file];
   const length = arrData.length;
 
   for (let i = 1; i < length - 2; i++) {
     formData.append(`files`, file.get(`image${i}`));
-    console.log("form", formData);
   }
 
   fetch(`${baseUrl}/ads?${searchParams.toString()}`, {
@@ -382,24 +384,24 @@ export const addImagesToAdv = ({ file, data }) => {
     body: formData,
   })
     .then((response) => {
-      if (response.status === 401) {
-        const refreshedToken = refreshAccessToken(token);
-        if (refreshedToken) {
-          token = refreshedToken;
-          const updatedResponse = fetch(`${baseUrl}/user`, {
-            //
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${refreshedToken}`,
-            },
-          });
-          const data = updatedResponse.json();
-          return data;
-        }
-      } else {
-        const data = response.json();
-        return data;
-      }
+      // if (response.status === 401) {
+      //   const refreshedToken = refreshAccessToken(token);
+      //   if (refreshedToken) {
+      //     token = refreshedToken;
+      //     const updatedResponse = fetch(`${baseUrl}/user`, {
+      //       //
+      //       method: "GET",
+      //       headers: {
+      //         Authorization: `Bearer ${refreshedToken}`,
+      //       },
+      //     });
+      //     const data = updatedResponse.json();
+      //     return data;
+      //   }
+      // } else {
+      const data = response.json();
+      return data;
+      // }
     })
     .then((data) => {
       console.log("Success:", data);
