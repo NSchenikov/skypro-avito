@@ -347,21 +347,33 @@ export const createAddWithNoImg = ({ data }) => {
 //     });
 // };
 
-export const addImagesToAdv = ({ fl, identifcator }) => {
+export const addImagesToAdv = ({ file, data }) => {
   let token = localStorage.getItem("refresh");
-  const photo = new FormData();
-  console.log(fl);
-  console.log(identifcator);
-  photo.append("pk", fl.id);
-  photo.append("path", fl.name);
-  photo.append("file", fl);
-  fetch(`${baseUrl}/ads/${identifcator}/image`, {
+  console.log(data);
+  const searchParams = new URLSearchParams();
+  searchParams.append("title", data.title);
+  searchParams.append("description", data.description);
+  searchParams.append("price", data.price);
+  // for (const key in data) {
+  //   searchParams.append(key, data[key]);
+  // }
+
+  const formData = new FormData();
+
+  const arrData = [...data];
+  const length = arrData.length;
+
+  for (let i = 1; i < length - 2; i++) {
+    formData.append(`files`, file.get(`image${i}`));
+  }
+
+  fetch(`${baseUrl}/ads?${searchParams.toString()}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    body: photo,
+    body: formData,
   })
     .then((response) => {
       if (response.status === 401) {
@@ -424,14 +436,18 @@ export const createAdvWithImg = ({ data, imgObj }) => {
         return data;
       }
     })
-    .then((data) => {
-      console.log("Success:", data);
-      console.log(data.id);
-      Object.keys(imgObj).forEach((key) => {
-        addImagesToAdv({ fl: imgObj[key], identificator: data.id });
+    .then((res) => {
+      console.log("Success:", res);
+      // console.log(data.id);
+      // Object.keys(imgObj).forEach((key) => {
+      //   addImagesToAdv({ file: imgObj[key], id: data.id });
+      // });
+      const formData = new FormData();
+      Object.keys(imgObj).forEach((image, index) => {
+        formData.append(`image${index + 1}`, image);
       });
-
-      return data;
+      addImagesToAdv({ file: formData, data: res });
+      return res;
     })
     .catch((error) => {
       console.error("Error:", error);

@@ -8,7 +8,7 @@ export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
   }, [selectedFiles]);
 
   const handleFileChange = (e) => {
-    const files = Array.from(e.target.files);
+    const files = Array.from(e.target.files); //
     if (selectedFiles.length + files.length <= 5) {
       const newImages = files.map((file) => ({
         id: Date.now(),
@@ -20,6 +20,7 @@ export const UploadAdvPhotos = ({ selectedFiles, setSelectedFiles }) => {
     } else {
       alert("Максимальное количество изображений - 5");
     }
+    // setSelectedFiles(files);
   };
 
   return (

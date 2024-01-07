@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { createAddWithNoImg, createAdvWithImg } from "../../API/api";
+import {
+  createAddWithNoImg,
+  createAdvWithImg,
+  addImagesToAdv,
+} from "../../API/api";
 import { UploadAdvPhotos } from "../uploadAdvPhotos/uploadAdvPhotos";
 import "./addnewat.css";
 
@@ -34,7 +38,15 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
       createAddWithNoImg({ data });
       onAddAdvShow(false);
     } else {
-      createAdvWithImg({ data, imgObj: data });
+      // createAdvWithImg({ data, imgObj: data });
+      const formData = new FormData();
+      selectedFiles.forEach((image, index) => {
+        formData.append(`image${index + 1}`, image);
+      });
+      addImagesToAdv({
+        file: formData,
+        data: [{ title, description, price }],
+      });
       onAddAdvShow(false);
       setSelectedFiles([]);
     }
