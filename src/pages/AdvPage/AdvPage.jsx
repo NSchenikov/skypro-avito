@@ -13,6 +13,7 @@ export const AdvPage = () => {
   const adv = location.state;
   let [chosenImg, setChosenImg] = useState(adv.imgUrl);
   let [currentUserId, seCurrentUserId] = useState(null);
+  let [currentAdId, setCurrentAdId] = useState(null);
   const dateObj = new Date(adv.adv.user.sells_from);
   let month = dateObj.getMonth();
   let years = dateObj.getFullYear();
@@ -33,6 +34,7 @@ export const AdvPage = () => {
         seCurrentUserId(data.id);
       });
     }
+    setCurrentAdId(parseInt(adv.adv.id, 10));
   }, []);
 
   return (
@@ -118,7 +120,7 @@ export const AdvPage = () => {
                   <p className="article__price">{adv.adv.price} ₽</p>
                   {currentUserId ? (
                     currentUserId === adv.adv.user.id ? (
-                      <CorrectAndDeleteButtons />
+                      <CorrectAndDeleteButtons currentAdId={currentAdId} />
                     ) : (
                       <PhoneButton userData={adv.adv.user.phone} />
                     )
