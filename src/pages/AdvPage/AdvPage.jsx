@@ -1,8 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../../components/header/header";
 import { baseUrl, months } from "../../components/advList/AdvList";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
+import { fetchCurrentUserData } from "../../API/api";
+import { CorrectAndDeleteButtons } from "../../components/correctAndDeleteButtons/correctAndDeleteButtons";
 import "./article.css";
 
 export const AdvPage = () => {
@@ -10,6 +12,7 @@ export const AdvPage = () => {
   const navigate = useNavigate();
   const adv = location.state;
   let [chosenImg, setChosenImg] = useState(adv.imgUrl);
+  let [currentUserId, seCurrentUserId] = useState(null);
   const dateObj = new Date(adv.adv.user.sells_from);
   let month = dateObj.getMonth();
   let years = dateObj.getFullYear();
@@ -22,6 +25,15 @@ export const AdvPage = () => {
       },
     });
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      fetchCurrentUserData().then((data) => {
+        // console.log(data);
+        seCurrentUserId(data.id);
+      });
+    }
+  }, []);
 
   return (
     <div className="wrapper">
@@ -104,7 +116,15 @@ export const AdvPage = () => {
                     </a>
                   </div>
                   <p className="article__price">{adv.adv.price} ₽</p>
-                  <PhoneButton userData={adv.adv.user.phone} />
+                  {currentUserId ? (
+                    currentUserId === adv.adv.user.id ? (
+                      <CorrectAndDeleteButtons />
+                    ) : (
+                      <PhoneButton userData={adv.adv.user.phone} />
+                    )
+                  ) : (
+                    <PhoneButton userData={adv.adv.user.phone} />
+                  )}
                   <div className="article__author author" onClick={handleClick}>
                     <div className="author__img">
                       <img src={`${baseUrl}${adv.adv.user.avatar}`} alt="" />
