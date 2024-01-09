@@ -1,13 +1,13 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { baseUrl } from "../../API/api";
+import { baseUrl, deleteImg } from "../../API/api";
 import "./atclsetting.css";
 
 export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const adv = location.state;
-  console.log(adv);
+  // console.log(adv);
   const [title, setTitle] = useState(adv.adv.title);
   const [description, setDescription] = useState(adv.adv.description);
   const [price, setPrice] = useState(adv.adv.price);
@@ -50,7 +50,24 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
     }
   };
 
-  const handleImgDelete = (e, fileUrl) => {};
+  const handleImgDelete = (e, fileUrl, index) => {
+    if (imgs[index].file) {
+      const newArr = [...imgs];
+      newArr.splice(index, 1);
+      setImgs(newArr);
+    } else {
+      e.preventDefault();
+      console.log("id", adv.adv.id);
+      console.log(fileUrl);
+      deleteImg({ id: adv.adv.id, fileUrl: fileUrl })
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
 
   return (
     <div className="modal__block">
@@ -100,7 +117,17 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               <div className="form-newArt__bar-img">
                 {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
-                    <div className="close">
+                    <div
+                      className="close"
+                      onClick={(e) =>
+                        handleImgDelete(
+                          e,
+                          image.file ? image.url : `${baseUrl}/${image.url}`,
+                          // image.url,
+                          index
+                        )
+                      }
+                    >
                       <div className="close-line"></div>{" "}
                     </div>
                     <label htmlFor="file-input">
@@ -135,7 +162,16 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               <div className="form-newArt__bar-img">
                 {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
-                    <div className="close">
+                    <div
+                      className="close"
+                      onClick={(e) =>
+                        handleImgDelete(
+                          e,
+                          image.file ? image.url : `${baseUrl}/${image.url}`,
+                          index
+                        )
+                      }
+                    >
                       <div className="close-line"></div>{" "}
                     </div>
                     <label htmlFor="file-input">

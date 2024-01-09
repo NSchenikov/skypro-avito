@@ -404,3 +404,52 @@ export const sendComment = async ({ advId, text }) => {
     return data;
   }
 };
+
+export const deleteImg = async ({ id, fileUrl }) => {
+  let token = localStorage.getItem("refresh");
+
+  const deleteRequest = async () => {
+    try {
+      const response = await fetch(`${baseUrl}/ads/${id}/image`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: {
+          fileUrl: fileUrl,
+        },
+      });
+
+      if (!response.ok) {
+        if (response.status === 401) {
+          const refreshedToken = await refreshAccessToken(token);
+          token = refreshedToken;
+          return fetch(`${baseUrl}/ads/${id}/image`, {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${refreshedToken}`,
+              "Content-Type": "application/json",
+            },
+          });
+        } else {
+          throw new Error("Failed to delete ad");
+        }
+      }
+
+      return response.json();
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  };
+
+  try {
+    const data = await deleteRequest();
+    console.log("Success:", data);
+    return data;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+};
