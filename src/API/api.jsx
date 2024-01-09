@@ -347,3 +347,35 @@ export const deleteAd = async ({ id }) => {
     throw error;
   }
 };
+
+export const getAllComments = async ({ advId }) => {
+  let token = localStorage.getItem("refresh");
+  const endpoint = `${baseUrl}/ads/${advId}/comments`;
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.status === 401) {
+      const refreshedToken = await refreshAccessToken(token);
+      if (refreshedToken) {
+        token = refreshedToken;
+        const updatedResponse = await fetch(endpoint, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${refreshedToken}`,
+          },
+        });
+        return updatedResponse;
+      }
+    } else {
+      return response;
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};

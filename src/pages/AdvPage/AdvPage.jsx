@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Header } from "../../components/header/header";
 import { baseUrl, months } from "../../components/advList/AdvList";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
-import { fetchCurrentUserData } from "../../API/api";
+import { fetchCurrentUserData, getAllComments } from "../../API/api";
 import { CorrectAndDeleteButtons } from "../../components/correctAndDeleteButtons/correctAndDeleteButtons";
 import { AdvSettings } from "../../components/AdvSettings/advSettings";
+import { Reviews } from "../../components/reviews/reviews";
 import "./article.css";
 
 export const AdvPage = () => {
@@ -16,6 +17,9 @@ export const AdvPage = () => {
   let [currentUserId, seCurrentUserId] = useState(null);
   let [currentAdId, setCurrentAdId] = useState(null);
   let [correctAdvModalOnShow, setCorrectAdvModalOnShow] = useState(false);
+  let [reviewsModalOnShow, setReviewsModalOnShow] = useState(false);
+  let [comments, setComments] = useState(null);
+  const [commentsLength, setCommentsLength] = useState(0);
   const dateObj = new Date(adv.adv.user.sells_from);
   let month = dateObj.getMonth();
   let years = dateObj.getFullYear();
@@ -38,6 +42,37 @@ export const AdvPage = () => {
     }
     setCurrentAdId(parseInt(adv.adv.id, 10));
   }, [adv]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllComments({ advId: adv.adv.id });
+        const data = await response.json();
+        setComments(data);
+        setCommentsLength(data.length);
+        // console.log(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  function getReviews(count) {
+    const lastTwoDigits = Math.abs(count) % 100;
+    const lastDigit = lastTwoDigits % 10;
+
+    if (lastTwoDigits > 10 && lastTwoDigits < 20) {
+      return count + " отзывов";
+    } else if (lastDigit === 1) {
+      return count + " отзыв";
+    } else if (lastDigit > 1 && lastDigit < 5) {
+      return count + " отзыва";
+    } else {
+      return count + " отзывов";
+    }
+  }
 
   return (
     <div className="wrapper">
@@ -110,14 +145,15 @@ export const AdvPage = () => {
                   <div className="article__info">
                     <p className="article__date">{adv.publicationDate}</p>
                     <p className="article__city">{adv.adv.user.city}</p>
-                    <a
+                    <div
                       className="article__link"
-                      href="/"
-                      target="_blank"
+                      onClick={(e) => setReviewsModalOnShow(true)}
                       rel=""
                     >
-                      23 отзыва
-                    </a>
+                      {commentsLength
+                        ? getReviews(commentsLength)
+                        : "нет отзывов"}
+                    </div>
                   </div>
                   <p className="article__price">{adv.adv.price} ₽</p>
                   {currentUserId ? (
@@ -159,6 +195,17 @@ export const AdvPage = () => {
               <div className="modal-content">
                 <AdvSettings
                   setCorrectAdvModalOnShow={setCorrectAdvModalOnShow}
+                />
+              </div>
+            </div>
+          )}
+          {reviewsModalOnShow && (
+            <div className="modal">
+              <div className="modal-content">
+                <Reviews
+                  setReviewsModalOnShow={setReviewsModalOnShow}
+                  comments={comments}
+                  setComments={setComments}
                 />
               </div>
             </div>
