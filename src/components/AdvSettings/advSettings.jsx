@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { baseUrl } from "../../API/api";
 import "./atclsetting.css";
 
@@ -12,6 +12,10 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
   const [description, setDescription] = useState(adv.adv.description);
   const [price, setPrice] = useState(adv.adv.price);
   const [imgs, setImgs] = useState(adv.adv.images);
+
+  useEffect(() => {
+    console.log("картиночки", imgs);
+  }, [imgs]);
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -98,12 +102,7 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                       <div className="form-newArt__img-cover"></div>
                     </label>
                     <img
-                      src={
-                        // image.url === adv.adv.images[index].url
-                        //   ?
-                        `${baseUrl}/${image.url}`
-                        // : image.url
-                      }
+                      src={image.file ? image.url : `${baseUrl}/${image.url}`}
                       alt=""
                     />
                   </div>
@@ -134,7 +133,10 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                     <label htmlFor="file-input">
                       <div className="form-newArt__img-cover"></div>
                     </label>
-                    <img src={`${baseUrl}/${image.url}`} alt="" />
+                    <img
+                      src={image.file ? image.url : `${baseUrl}/${image.url}`}
+                      alt=""
+                    />
                   </div>
                 ))}
               </div>
