@@ -379,3 +379,26 @@ export const getAllComments = async ({ advId }) => {
     throw new Error(error);
   }
 };
+
+export const sendComment = async ({ advId, text }) => {
+  const response = await fetch(`${baseUrl}/ads/${advId}/comments`, {
+    method: "POST",
+    body: JSON.stringify({
+      text: text,
+    }),
+    headers: {
+      "content-type": "application/json",
+    },
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    console.log(data);
+    const error = data.detail[0].msg ?? data.detail;
+    console.log(error);
+    throw new Error(error);
+  } else {
+    return data;
+  }
+};

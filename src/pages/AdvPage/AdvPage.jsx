@@ -41,7 +41,7 @@ export const AdvPage = () => {
       });
     }
     setCurrentAdId(parseInt(adv.adv.id, 10));
-  }, [adv]);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -206,6 +206,7 @@ export const AdvPage = () => {
                   setReviewsModalOnShow={setReviewsModalOnShow}
                   comments={comments}
                   setComments={setComments}
+                  currentAdId={currentAdId}
                 />
               </div>
             </div>

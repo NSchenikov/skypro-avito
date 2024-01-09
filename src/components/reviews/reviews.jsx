@@ -1,9 +1,25 @@
 import { months } from "../advList/AdvList";
 import { baseUrl } from "../advList/AdvList";
+import { useState } from "react";
+import { sendComment } from "../../API/api";
 import "./reviews.css";
 
-export const Reviews = ({ setReviewsModalOnShow, comments, setComments }) => {
-  console.log(comments);
+export const Reviews = ({
+  setReviewsModalOnShow,
+  comments,
+  setComments,
+  currentAdId,
+}) => {
+  const [textComment, setTextComment] = useState("");
+
+  const handleTextChange = (e) => {
+    const newText = e.target.value;
+    setTextComment(newText);
+  };
+
+  const handleCommentSend = (e) => {
+    sendComment({ currentAdId, textComment });
+  };
   return (
     <div className="modal__block">
       <div className="modal__content">
@@ -19,6 +35,7 @@ export const Reviews = ({ setReviewsModalOnShow, comments, setComments }) => {
             className="modal__form-newArt form-newArt"
             id="formNewArt"
             action="#"
+            onSubmit={(e) => handleCommentSend(e)}
           >
             <div className="form-newArt__block">
               <label htmlFor="text">Добавить отзыв</label>
@@ -29,9 +46,15 @@ export const Reviews = ({ setReviewsModalOnShow, comments, setComments }) => {
                 cols="auto"
                 rows="5"
                 placeholder="Введите описание"
+                value={textComment}
+                onChange={(e) => handleTextChange(e)}
               ></textarea>
             </div>
-            <button className="form-newArt__btn-pub btn-hov02" id="btnPublish">
+            <button
+              className="form-newArt__btn-pub btn-hov02"
+              id="btnPublish"
+              type="submit"
+            >
               Опубликовать
             </button>
           </form>
