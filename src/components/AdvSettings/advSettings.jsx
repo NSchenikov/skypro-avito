@@ -1,6 +1,51 @@
+import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { baseUrl } from "../../API/api";
 import "./atclsetting.css";
 
 export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const adv = location.state;
+  console.log(adv);
+  const [title, setTitle] = useState(adv.adv.title);
+  const [description, setDescription] = useState(adv.adv.description);
+  const [price, setPrice] = useState(adv.adv.price);
+  const [imgs, setImgs] = useState(adv.adv.images);
+
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
+  };
+
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    setDescription(newDescription);
+  };
+
+  const handlePriceChange = (e) => {
+    const inputValue = e.target.value;
+    if (!isNaN(inputValue)) {
+      const newPrice = Number(inputValue);
+      setPrice(newPrice);
+    }
+  };
+
+  const handleFileAdd = (e) => {
+    const files = Array.from(e.target.files); //
+    if (imgs.length + files.length <= 5) {
+      const newImages = files.map((file) => ({
+        id: Date.now(),
+        url: URL.createObjectURL(file),
+        file: file,
+      }));
+
+      setImgs([...imgs, ...newImages]);
+    } else {
+      alert("Максимальное количество изображений - 5");
+    }
+  };
+
   return (
     <div className="modal__block">
       <div className="modal__content">
@@ -24,7 +69,8 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               name="name"
               id="formName"
               placeholder="Введите название"
-              value="Ракетка для большого тенниса Triumph Pro STС Б/У"
+              onChange={(e) => handleTitleChange(e)}
+              value={title}
             />
           </div>
           <div className="form-newArt__block">
@@ -36,42 +82,63 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               cols="auto"
               rows="10"
               placeholder="Введите описание"
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </textarea>
+              onChange={(e) => handleDescriptionChange(e)}
+              value={description}
+            ></textarea>
           </div>
           <div className="form-newArt__block">
             <p className="form-newArt__p">
               Фотографии товара<span>не более 5 фотографий</span>
             </p>
-            <div className="form-newArt__bar-img">
-              <div className="form-newArt__img">
-                <img src="" alt="" />
-                <div className="form-newArt__img-cover"></div>
+            {imgs.length < 5 && (
+              <div className="form-newArt__bar-img">
+                {imgs.map((image, index) => (
+                  <div className="form-newArt__img image-upload" key={index}>
+                    <label htmlFor="file-input">
+                      <div className="form-newArt__img-cover"></div>
+                    </label>
+                    <img
+                      src={
+                        // image.url === adv.adv.images[index].url
+                        //   ?
+                        `${baseUrl}/${image.url}`
+                        // : image.url
+                      }
+                      alt=""
+                    />
+                  </div>
+                ))}
+                <div
+                  className="form-newArt__img image-upload"
+                  onClick={() => document.getElementById("fileInput").click()}
+                >
+                  <label htmlFor="file-input">
+                    <div className="form-newArt__img-cover"></div>
+                  </label>
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    onChange={handleFileAdd}
+                    multiple
+                  />
+                  <img src="" alt="" />
+                </div>
               </div>
-              <div className="form-newArt__img">
-                <img src="" alt="" />
-                <div className="form-newArt__img-cover"></div>
+            )}
+            {imgs.length === 5 && (
+              <div className="form-newArt__bar-img">
+                {imgs.map((image, index) => (
+                  <div className="form-newArt__img image-upload" key={index}>
+                    <label htmlFor="file-input">
+                      <div className="form-newArt__img-cover"></div>
+                    </label>
+                    <img src={`${baseUrl}/${image.url}`} alt="" />
+                  </div>
+                ))}
               </div>
-              <div className="form-newArt__img">
-                <div className="form-newArt__img-cover"></div>
-                <img src="" alt="" />
-              </div>
-              <div className="form-newArt__img">
-                <div className="form-newArt__img-cover"></div>
-                <img src="" alt="" />
-              </div>
-              <div className="form-newArt__img">
-                <div className="form-newArt__img-cover"></div>
-                <img src="" alt="" />
-              </div>
-            </div>
+            )}
           </div>
           <div className="form-newArt__block block-price">
             <label htmlFor="price">Цена</label>
@@ -80,7 +147,8 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               type="text"
               name="price"
               id="formName"
-              value="2 200"
+              onChange={(e) => handlePriceChange(e)}
+              value={price}
             />
             <div className="form-newArt__input-price-cover"></div>
           </div>
