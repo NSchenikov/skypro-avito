@@ -1,7 +1,7 @@
 import { months } from "../advList/AdvList";
 import { baseUrl } from "../advList/AdvList";
 import { useState } from "react";
-import { sendComment } from "../../API/api";
+import { sendComment, getAllComments } from "../../API/api";
 import { useNavigate } from "react-router-dom";
 import "./reviews.css";
 
@@ -20,14 +20,21 @@ export const Reviews = ({
   };
 
   const handleCommentSend = (e) => {
-    sendComment({ advId: currentAdId, text: textComment });
-    // navigate(`/advpage/${currentAdId}`, {
-    //   state: {
-    //     adv: adv,
-    //     allAds: adv.allAds,
-    //   },
-    // });
-    navigate("/");
+    e.preventDefault();
+    sendComment({ advId: currentAdId, text: textComment }).then(() => {
+      const fetchData = async () => {
+        try {
+          const response = await getAllComments({ advId: currentAdId });
+          const data = await response.json();
+          setComments(data);
+          setTextComment("");
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      fetchData();
+    });
   };
   return (
     <div className="modal__block">
