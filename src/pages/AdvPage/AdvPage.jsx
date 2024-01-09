@@ -5,6 +5,7 @@ import { baseUrl, months } from "../../components/advList/AdvList";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import { fetchCurrentUserData } from "../../API/api";
 import { CorrectAndDeleteButtons } from "../../components/correctAndDeleteButtons/correctAndDeleteButtons";
+import { AdvSettings } from "../../components/AdvSettings/advSettings";
 import "./article.css";
 
 export const AdvPage = () => {
@@ -14,6 +15,7 @@ export const AdvPage = () => {
   let [chosenImg, setChosenImg] = useState(adv.imgUrl);
   let [currentUserId, seCurrentUserId] = useState(null);
   let [currentAdId, setCurrentAdId] = useState(null);
+  let [correctAdvModalOnShow, setCorrectAdvModalOnShow] = useState(false);
   const dateObj = new Date(adv.adv.user.sells_from);
   let month = dateObj.getMonth();
   let years = dateObj.getFullYear();
@@ -35,7 +37,7 @@ export const AdvPage = () => {
       });
     }
     setCurrentAdId(parseInt(adv.adv.id, 10));
-  }, []);
+  }, [adv]);
 
   return (
     <div className="wrapper">
@@ -120,7 +122,10 @@ export const AdvPage = () => {
                   <p className="article__price">{adv.adv.price} ₽</p>
                   {currentUserId ? (
                     currentUserId === adv.adv.user.id ? (
-                      <CorrectAndDeleteButtons currentAdId={currentAdId} />
+                      <CorrectAndDeleteButtons
+                        currentAdId={currentAdId}
+                        setCorrectAdvModalOnShow={setCorrectAdvModalOnShow}
+                      />
                     ) : (
                       <PhoneButton userData={adv.adv.user.phone} />
                     )
@@ -149,6 +154,15 @@ export const AdvPage = () => {
               <p className="main__text">{adv.adv.description}</p>
             </div>
           </div>
+          {correctAdvModalOnShow && (
+            <div className="modal">
+              <div className="modal-content">
+                <AdvSettings
+                  setCorrectAdvModalOnShow={setCorrectAdvModalOnShow}
+                />
+              </div>
+            </div>
+          )}
         </main>
 
         <footer className="footer">

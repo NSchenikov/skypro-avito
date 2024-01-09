@@ -1,7 +1,10 @@
 import { deleteAd } from "../../API/api";
 import { useNavigate } from "react-router-dom";
 
-export const CorrectAndDeleteButtons = ({ currentAdId }) => {
+export const CorrectAndDeleteButtons = ({
+  currentAdId,
+  setCorrectAdvModalOnShow,
+}) => {
   let navigate = useNavigate();
 
   const handleRemoveAd = (e) => {
@@ -17,7 +20,10 @@ export const CorrectAndDeleteButtons = ({ currentAdId }) => {
   };
   return (
     <div className="article__btn-block">
-      <button className="article__btn btn-redact btn-hov02">
+      <button
+        className="article__btn btn-redact btn-hov02"
+        onClick={() => setCorrectAdvModalOnShow(true)}
+      >
         Редактировать
       </button>
       <button
