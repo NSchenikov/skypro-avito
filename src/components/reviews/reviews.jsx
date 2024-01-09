@@ -2,6 +2,7 @@ import { months } from "../advList/AdvList";
 import { baseUrl } from "../advList/AdvList";
 import { useState } from "react";
 import { sendComment } from "../../API/api";
+import { useNavigate } from "react-router-dom";
 import "./reviews.css";
 
 export const Reviews = ({
@@ -11,6 +12,7 @@ export const Reviews = ({
   currentAdId,
 }) => {
   const [textComment, setTextComment] = useState("");
+  const navigate = useNavigate();
 
   const handleTextChange = (e) => {
     const newText = e.target.value;
@@ -18,7 +20,14 @@ export const Reviews = ({
   };
 
   const handleCommentSend = (e) => {
-    sendComment({ currentAdId, textComment });
+    sendComment({ advId: currentAdId, text: textComment });
+    // navigate(`/advpage/${currentAdId}`, {
+    //   state: {
+    //     adv: adv,
+    //     allAds: adv.allAds,
+    //   },
+    // });
+    navigate("/");
   };
   return (
     <div className="modal__block">

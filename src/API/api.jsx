@@ -381,12 +381,14 @@ export const getAllComments = async ({ advId }) => {
 };
 
 export const sendComment = async ({ advId, text }) => {
+  let token = localStorage.getItem("refresh");
   const response = await fetch(`${baseUrl}/ads/${advId}/comments`, {
     method: "POST",
     body: JSON.stringify({
       text: text,
     }),
     headers: {
+      Authorization: `Bearer ${token}`,
       "content-type": "application/json",
     },
   });

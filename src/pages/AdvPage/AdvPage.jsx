@@ -159,7 +159,7 @@ export const AdvPage = () => {
                   {currentUserId ? (
                     currentUserId === adv.adv.user.id ? (
                       <CorrectAndDeleteButtons
-                        currentAdId={currentAdId}
+                        currentAdId={adv.adv.id}
                         setCorrectAdvModalOnShow={setCorrectAdvModalOnShow}
                       />
                     ) : (
