@@ -1,7 +1,9 @@
 import { months } from "../advList/AdvList";
+import { baseUrl } from "../advList/AdvList";
 import "./reviews.css";
 
 export const Reviews = ({ setReviewsModalOnShow, comments, setComments }) => {
+  console.log(comments);
   return (
     <div className="modal__block">
       <div className="modal__content">
@@ -45,7 +47,14 @@ export const Reviews = ({ setReviewsModalOnShow, comments, setComments }) => {
                       <div className="review__item">
                         <div className="review__left">
                           <div className="review__img">
-                            <img src="" alt="" />
+                            <img
+                              src={
+                                comment.author.avatar
+                                  ? `${baseUrl}${comment.author.avatar}`
+                                  : ""
+                              }
+                              alt=""
+                            />
                           </div>
                         </div>
                         <div className="review__right">
