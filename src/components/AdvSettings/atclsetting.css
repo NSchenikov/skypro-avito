@@ -431,6 +431,49 @@ a {
   position: relative;
 }
 
+.close-line:hover::after,
+.close-line:hover::before {
+  background-color: grey;
+}
+
+.close {
+  width: 23px;
+  height: 23px;
+  position: absolute;
+  top: 35px;
+  right: 30px;
+  z-index: 3;
+  cursor: pointer;
+}
+
+.close-line {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.close-line::after,
+.close-line::before {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: red;
+  top: 47%;
+  right: -4px;
+}
+
+.close-line::before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.close-line::after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
 @media screen and (max-width: 600px) {
   .modal__block {
     position: absolute;

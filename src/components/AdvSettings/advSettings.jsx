@@ -50,6 +50,8 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
     }
   };
 
+  const handleImgDelete = (e, fileUrl) => {};
+
   return (
     <div className="modal__block">
       <div className="modal__content">
@@ -98,6 +100,9 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               <div className="form-newArt__bar-img">
                 {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
+                    <div className="close">
+                      <div className="close-line"></div>{" "}
+                    </div>
                     <label htmlFor="file-input">
                       <div className="form-newArt__img-cover"></div>
                     </label>
@@ -130,6 +135,9 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               <div className="form-newArt__bar-img">
                 {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
+                    <div className="close">
+                      <div className="close-line"></div>{" "}
+                    </div>
                     <label htmlFor="file-input">
                       <div className="form-newArt__img-cover"></div>
                     </label>
