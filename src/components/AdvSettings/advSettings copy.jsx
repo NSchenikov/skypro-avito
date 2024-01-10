@@ -5,127 +5,68 @@ import "./atclsetting.css";
 
 export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
   const location = useLocation();
-  const adv = location.state.adv;
-  const token = localStorage.getItem("refresh");
+  console.log("location", location);
+  const navigate = useNavigate();
+  const adv = location.state;
+  // console.log(adv);
+  const [title, setTitle] = useState(adv.adv.title);
+  const [description, setDescription] = useState(adv.adv.description);
+  const [price, setPrice] = useState(adv.adv.price);
+  const [imgs, setImgs] = useState(adv.adv.images);
 
-  const [adData, setAdData] = useState({
-    title: adv?.title,
-    description: adv?.description,
-    price: adv?.price,
-    images: adv?.images,
-  });
+  useEffect(() => {
+    console.log("картиночки", imgs);
+  }, [imgs]);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    console.log("inputChange");
-    setAdData({
-      ...adData,
-      [name]: value,
-    });
+  const handleTitleChange = (e) => {
+    const newTitle = e.target.value;
+    setTitle(newTitle);
   };
 
-  const handleImageChange = (newImages) => {
-    setAdData({
-      ...adData,
-      images: newImages,
-    });
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    setDescription(newDescription);
   };
 
-  const handleFileAdd = async (event) => {
-    const files = Array.from(event.target.files);
-
-    for (const file of files) {
-      // Create a FormData object and append the file
-      const formData = new FormData();
-      formData.append("file", file); // 'image' is the field name expected by your API
-
-      try {
-        const response = await fetch(`${baseUrl}/ads/${adv.id}/image`, {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const uploadedImage = await response.json();
-        console.log("uploadedImage", uploadedImage);
-        setAdData((prevState) => ({
-          ...prevState,
-          images: [
-            ...prevState.images,
-            {
-              url: uploadedImage?.images[uploadedImage?.images?.length - 1].url,
-            },
-          ],
-        }));
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
+  const handlePriceChange = (e) => {
+    const inputValue = e.target.value;
+    if (!isNaN(inputValue)) {
+      const newPrice = Number(inputValue);
+      setPrice(newPrice);
     }
   };
 
-  const updateAd = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/ads/${adv.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(adData),
-      });
+  const handleFileAdd = (e) => {
+    const files = Array.from(e.target.files); //
+    if (imgs.length + files.length <= 5) {
+      const newImages = files.map((file) => ({
+        id: Date.now(),
+        url: URL.createObjectURL(file),
+        file: file,
+      }));
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const updatedAd = await response.json();
-      console.log("Ad updated:", updatedAd);
-      // Redirect or perform other actions after update
-    } catch (error) {
-      console.error("Error updating ad:", error);
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateAd();
-  };
-
-  const handleImgDelete = async (index) => {
-    const imageToDelete = adData.images[index];
-
-    if (imageToDelete.file) {
-      const updatedImages = adData.images.filter((_, idx) => idx !== index);
-      setAdData({ ...adData, images: updatedImages });
+      setImgs([...imgs, ...newImages]);
     } else {
-      try {
-        const response = await fetch(
-          `${baseUrl}/ads/${adv.id}/image?file_url=${encodeURIComponent(
-            imageToDelete.url
-          )}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+      alert("Максимальное количество изображений - 5");
+    }
+  };
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const updatedImages = adData.images.filter((_, idx) => idx !== index);
-        setAdData({ ...adData, images: updatedImages });
-      } catch (error) {
-        console.error("Error deleting image:", error);
-      }
+  const handleImgDelete = (e, fileUrl, index) => {
+    if (imgs[index].file) {
+      const newArr = [...imgs];
+      newArr.splice(index, 1);
+      setImgs(newArr);
+    } else {
+      e.preventDefault();
+      console.log("id", adv.adv.id);
+      console.log(fileUrl);
+      deleteImg({ id: adv.adv.id, fileUrl: fileUrl })
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
@@ -143,44 +84,50 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
           className="modal__form-newArt form-newArt"
           id="formNewArt"
           action="#"
-          onSubmit={handleSubmit}
         >
           <div className="form-newArt__block">
             <label htmlFor="name">Название</label>
             <input
               className="form-newArt__input"
               type="text"
-              name="title"
+              name="name"
               id="formName"
               placeholder="Введите название"
-              onChange={handleInputChange}
-              value={adData.title}
+              onChange={(e) => handleTitleChange(e)}
+              value={title}
             />
           </div>
           <div className="form-newArt__block">
             <label htmlFor="text">Описание</label>
             <textarea
               className="form-newArt__area"
-              name="description"
+              name="text"
               id="formArea"
               cols="auto"
               rows="10"
               placeholder="Введите описание"
-              onChange={handleInputChange}
-              value={adData.description}
+              onChange={(e) => handleDescriptionChange(e)}
+              value={description}
             ></textarea>
           </div>
           <div className="form-newArt__block">
             <p className="form-newArt__p">
               Фотографии товара<span>не более 5 фотографий</span>
             </p>
-            {adData?.images?.length < 5 && (
+            {imgs.length < 5 && (
               <div className="form-newArt__bar-img">
-                {adData?.images?.map((image, index) => (
+                {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
                     <div
                       className="close"
-                      onClick={() => handleImgDelete(index)}
+                      onClick={(e) =>
+                        handleImgDelete(
+                          e,
+                          image.file ? image.url : `${baseUrl}/${image.url}`,
+                          // image.url,
+                          index
+                        )
+                      }
                     >
                       <div className="close-line"></div>{" "}
                     </div>
@@ -212,13 +159,19 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                 </div>
               </div>
             )}
-            {adData?.images?.length === 5 && (
+            {imgs.length === 5 && (
               <div className="form-newArt__bar-img">
-                {adData?.images?.map((image, index) => (
+                {imgs.map((image, index) => (
                   <div className="form-newArt__img image-upload" key={index}>
                     <div
                       className="close"
-                      onClick={() => handleImgDelete(index)}
+                      onClick={(e) =>
+                        handleImgDelete(
+                          e,
+                          image.file ? image.url : `${baseUrl}/${image.url}`,
+                          index
+                        )
+                      }
                     >
                       <div className="close-line"></div>{" "}
                     </div>
@@ -241,8 +194,8 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
               type="text"
               name="price"
               id="formName"
-              onChange={handleInputChange}
-              value={adData.price}
+              onChange={(e) => handlePriceChange(e)}
+              value={price}
             />
             <div className="form-newArt__input-price-cover"></div>
           </div>
