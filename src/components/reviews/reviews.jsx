@@ -47,33 +47,37 @@ export const Reviews = ({
           <div className="modal__btn-close-line"></div>
         </div>
         <div className="modal__scroll">
-          <form
-            className="modal__form-newArt form-newArt"
-            id="formNewArt"
-            action="#"
-            onSubmit={(e) => handleCommentSend(e)}
-          >
-            <div className="form-newArt__block">
-              <label htmlFor="text">Добавить отзыв</label>
-              <textarea
-                className="form-newArt__area"
-                name="text"
-                id="formArea"
-                cols="auto"
-                rows="5"
-                placeholder="Введите описание"
-                value={textComment}
-                onChange={(e) => handleTextChange(e)}
-              ></textarea>
-            </div>
-            <button
-              className="form-newArt__btn-pub btn-hov02"
-              id="btnPublish"
-              type="submit"
+          {localStorage.getItem("user") ? (
+            <form
+              className="modal__form-newArt form-newArt"
+              id="formNewArt"
+              action="#"
+              onSubmit={(e) => handleCommentSend(e)}
             >
-              Опубликовать
-            </button>
-          </form>
+              <div className="form-newArt__block">
+                <label htmlFor="text">Добавить отзыв</label>
+                <textarea
+                  className="form-newArt__area"
+                  name="text"
+                  id="formArea"
+                  cols="auto"
+                  rows="5"
+                  placeholder="Введите описание"
+                  value={textComment}
+                  onChange={(e) => handleTextChange(e)}
+                ></textarea>
+              </div>
+              <button
+                className="form-newArt__btn-pub btn-hov02"
+                id="btnPublish"
+                type="submit"
+              >
+                Опубликовать
+              </button>
+            </form>
+          ) : (
+            ""
+          )}
 
           <div className="modal__reviews reviews">
             {Array.isArray(comments) && comments.length > 0
