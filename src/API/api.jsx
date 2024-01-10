@@ -453,3 +453,98 @@ export const deleteImg = async ({ id, fileUrl }) => {
     throw error;
   }
 };
+
+export const handleFileAdd = async ({ event, advId }) => {
+  const token = localStorage.getItem("refresh");
+  const files = Array.from(event.target.files);
+
+  for (const file of files) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch(`${baseUrl}/ads/${advId}/image`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const uploadedImage = await response.json();
+      console.log("uploadedImage", uploadedImage);
+      return uploadedImage;
+      // setAdData((prevState) => ({
+      //   ...prevState,
+      //   images: [
+      //     ...prevState.images,
+      //     {
+      //       url: uploadedImage?.images[uploadedImage?.images?.length - 1].url,
+      //     },
+      //   ],
+      // }))
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  }
+};
+
+export const updateAd = async ({ advId, adData }) => {
+  const token = localStorage.getItem("refresh");
+  try {
+    const response = await fetch(`${baseUrl}/ads/${advId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(adData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const updatedAd = await response.json();
+    console.log("Ad updated:", updatedAd);
+  } catch (error) {
+    console.error("Error updating ad:", error);
+  }
+};
+
+export const handleImgDelete = async ({ index, advId, adData, setAdData }) => {
+  const token = localStorage.getItem("refresh");
+  const imageToDelete = adData.images[index];
+
+  if (imageToDelete.file) {
+    const updatedImages = adData.images.filter((_, idx) => idx !== index);
+    setAdData({ ...adData, images: updatedImages });
+  } else {
+    try {
+      const response = await fetch(
+        `${baseUrl}/ads/${advId}/image?file_url=${encodeURIComponent(
+          imageToDelete.url
+        )}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const updatedImages = adData.images.filter((_, idx) => idx !== index);
+      setAdData({ ...adData, images: updatedImages });
+    } catch (error) {
+      console.error("Error deleting image:", error);
+    }
+  }
+};

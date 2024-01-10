@@ -1,12 +1,17 @@
-import { useNavigate, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { baseUrl, deleteImg } from "../../API/api";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  baseUrl,
+  handleFileAdd,
+  updateAd,
+  handleImgDelete,
+} from "../../API/api";
 import "./atclsetting.css";
 
 export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const adv = location.state.adv;
-  const token = localStorage.getItem("refresh");
 
   const [adData, setAdData] = useState({
     title: adv?.title,
@@ -24,109 +29,10 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
     });
   };
 
-  const handleImageChange = (newImages) => {
-    setAdData({
-      ...adData,
-      images: newImages,
-    });
-  };
-
-  const handleFileAdd = async (event) => {
-    const files = Array.from(event.target.files);
-
-    for (const file of files) {
-      // Create a FormData object and append the file
-      const formData = new FormData();
-      formData.append("file", file); // 'image' is the field name expected by your API
-
-      try {
-        const response = await fetch(`${baseUrl}/ads/${adv.id}/image`, {
-          method: "POST",
-          body: formData,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const uploadedImage = await response.json();
-        console.log("uploadedImage", uploadedImage);
-        setAdData((prevState) => ({
-          ...prevState,
-          images: [
-            ...prevState.images,
-            {
-              url: uploadedImage?.images[uploadedImage?.images?.length - 1].url,
-            },
-          ],
-        }));
-      } catch (error) {
-        console.error("Error uploading image:", error);
-      }
-    }
-  };
-
-  const updateAd = async () => {
-    try {
-      const response = await fetch(`${baseUrl}/ads/${adv.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(adData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const updatedAd = await response.json();
-      console.log("Ad updated:", updatedAd);
-      // Redirect or perform other actions after update
-    } catch (error) {
-      console.error("Error updating ad:", error);
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateAd();
-  };
-
-  const handleImgDelete = async (index) => {
-    const imageToDelete = adData.images[index];
-
-    if (imageToDelete.file) {
-      const updatedImages = adData.images.filter((_, idx) => idx !== index);
-      setAdData({ ...adData, images: updatedImages });
-    } else {
-      try {
-        const response = await fetch(
-          `${baseUrl}/ads/${adv.id}/image?file_url=${encodeURIComponent(
-            imageToDelete.url
-          )}`,
-          {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const updatedImages = adData.images.filter((_, idx) => idx !== index);
-        setAdData({ ...adData, images: updatedImages });
-      } catch (error) {
-        console.error("Error deleting image:", error);
-      }
-    }
+    updateAd({ advId: adv.id, adData: adData });
+    navigate("/");
   };
 
   return (
@@ -180,7 +86,14 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                   <div className="form-newArt__img image-upload" key={index}>
                     <div
                       className="close"
-                      onClick={() => handleImgDelete(index)}
+                      onClick={() =>
+                        handleImgDelete({
+                          index: index,
+                          advId: adv.id,
+                          adData: adData,
+                          setAdData: setAdData,
+                        })
+                      }
                     >
                       <div className="close-line"></div>{" "}
                     </div>
@@ -205,7 +118,23 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                     type="file"
                     accept="image/*"
                     style={{ display: "none" }}
-                    onChange={handleFileAdd}
+                    onChange={(e) => {
+                      handleFileAdd({ event: e, advId: adv.id }).then(
+                        (uploadedImage) => {
+                          setAdData((prevState) => ({
+                            ...prevState,
+                            images: [
+                              ...prevState.images,
+                              {
+                                url: uploadedImage?.images[
+                                  uploadedImage?.images?.length - 1
+                                ].url,
+                              },
+                            ],
+                          }));
+                        }
+                      );
+                    }}
                     multiple
                   />
                   <img src="" alt="" />
@@ -218,7 +147,14 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
                   <div className="form-newArt__img image-upload" key={index}>
                     <div
                       className="close"
-                      onClick={() => handleImgDelete(index)}
+                      onClick={() =>
+                        handleImgDelete({
+                          index: index,
+                          advId: adv.id,
+                          adData: adData,
+                          setAdData: setAdData,
+                        })
+                      }
                     >
                       <div className="close-line"></div>{" "}
                     </div>
