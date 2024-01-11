@@ -9,11 +9,13 @@ export const Main = () => {
   let [ads, setAds] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filteredAds, setFilteredAds] = useState(ads);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    getAds().then((response) => {
+    getAds({ setLoading: setLoading }).then((response) => {
       setAds(response);
       console.log(response);
+      setLoading(false);
     });
   }, []);
   useEffect(() => {
@@ -30,12 +32,17 @@ export const Main = () => {
           <Search setSearchValue={setSearchValue} />
           <div className="main__container">
             <h2 className="main__h2">Объявления</h2>
-
-            <div className="main__content">
-              <div className="cards">
-                <AdvList ads={filteredAds} />
+            {loading ? (
+              <div className="loader-container">
+                <div className="spinner"></div>
               </div>
-            </div>
+            ) : (
+              <div className="main__content">
+                <div className="cards">
+                  <AdvList ads={filteredAds} />
+                </div>
+              </div>
+            )}
           </div>
         </main>
 

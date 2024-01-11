@@ -1,6 +1,7 @@
 export const baseUrl = "http://localhost:8090";
 
-export async function getAds() {
+export async function getAds({ setLoading }) {
+  setLoading(true);
   const response = await fetch(`${baseUrl}/ads`);
 
   if (!response.ok) {
