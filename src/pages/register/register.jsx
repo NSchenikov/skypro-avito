@@ -2,15 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../Contexts/authContext";
 import { registerUser, getToken } from "../../API/api";
+import { pattern } from "../login/login";
 import "./signup.css";
+
 export const Register = () => {
   function getRandomIntId(max) {
     return Math.floor(Math.random() * max);
   }
   const navigate = useNavigate();
   const id = getRandomIntId(500000000000000);
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
   let [city, setCity] = useState("");
@@ -35,15 +35,37 @@ export const Register = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
+    setError(null);
+    // setLoading(true);
     const valForm = validateForm();
-    if (valForm && password) {
+    if (!email) {
+      setError("Введите email");
+      // setLoading(false);
+      return;
+    }
+    if (!pattern.test(email.toLowerCase())) {
+      // setLoading(false);
+      setError("Введите корректный email");
+      return;
+    }
+    if (!password) {
+      setError("Введите пароль");
+      // setLoading(false);
+      return;
+    }
+    if (password.length < 5) {
+      setError("Пароль должен быть не менее 5 символов");
+      // setLoading(false);
+      return;
+    }
+    if (valForm) {
       setError(null);
       console.log("submit");
       registerUser(id, email, password, firstName, lastName, null, city)
         .then(() => {
           getToken(email, password)
             .then((res) => {
+              setLoading(true);
               setUser("user", res.access_token, "refresh", res.refresh_token);
               setIsLoggedIn(true);
               setAuthUser(email);
@@ -59,7 +81,7 @@ export const Register = () => {
     } else {
       event.preventDefault();
       setLoading(false);
-      setError("Пароль не указан");
+      setError("Пароли не совпадают");
     }
   };
   const errorDiv = error ? <div className="error">{error}</div> : "";
@@ -154,12 +176,11 @@ export const Register = () => {
                 setCity(e.target.value);
               }}
             />
-            <div className="possibleError">
-              {!validateForm() && (
-                <p className="error">Введенные пароли не совпадают</p>
-              )}
-              {errorDiv}
-            </div>
+            {/* <div className="possibleError"> */}
+            {/* {!validateForm() && ( */}
+            <div className="error">{errorDiv}</div>
+            {/* )} */}
+            {/* </div> */}
             <button
               className="modal__btn-signup-ent"
               id="SignUpEnter"

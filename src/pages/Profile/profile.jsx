@@ -99,9 +99,9 @@ export const Profile = () => {
               </div>
 
               <h2 className="main__h2">
-                {`Здравствуйте, ${
-                  currentUserData ? currentUserData.name : null
-                }!`}
+                {`Здравствуйте${
+                  currentUserData.name ? `, ${currentUserData.name}` : ""
+                }`}
               </h2>
 
               <div className="main__profile profile">

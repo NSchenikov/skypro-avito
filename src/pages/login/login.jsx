@@ -3,12 +3,12 @@ import { useState } from "react";
 import { getToken } from "../../API/api";
 import { useAuth } from "../../Contexts/authContext";
 import "./signin.css";
+export const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const {
     authUser,
