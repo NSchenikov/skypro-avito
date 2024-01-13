@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Header } from "../../components/header/header";
-import { baseUrl, months } from "../../components/advList/AdvList";
+import { baseUrl, months } from "../../components/advList/advList";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import { fetchCurrentUserData, getAllComments } from "../../API/api";
 import { CorrectAndDeleteButtons } from "../../components/correctAndDeleteButtons/correctAndDeleteButtons";

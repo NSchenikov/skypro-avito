@@ -3,10 +3,10 @@ import { Main } from "../pages/Main/main";
 import { Login } from "../pages/login/login";
 import { Register } from "../pages/register/register";
 import { Profile } from "../pages/Profile/profile";
-import { AdvPage } from "../pages/AdvPage/AdvPage";
+import { AdvPage } from "../pages/AdvPage/advPage";
 import { MyAdvPage } from "../pages/myAdvPage/myAdvPage";
 import { SellerProfile } from "../pages/sellerProfile/sellerProfile";
-import { NotFound } from "../pages/NotFound/NotFound";
+import { NotFound } from "../pages/NotFound/notFound";
 import { ProtectedRoute } from "./protectedRoute";
 
 export const AppRoutes = ({ user }) => {

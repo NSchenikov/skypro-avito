@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/header/header";
-import { AdvList } from "../../components/advList/AdvList";
+import { AdvList } from "../../components/advList/advList";
 import { UploadPhoto } from "../../components/uploadPhoto/uploadPhoto";
 import {
   fetchCurrentUserData,

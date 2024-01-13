@@ -1,5 +1,4 @@
-import { months } from "../advList/AdvList";
-import { baseUrl } from "../advList/AdvList";
+import { months, baseUrl } from "../advList/advList";
 import { useState } from "react";
 import { sendComment, getAllComments } from "../../API/api";
 import { useNavigate } from "react-router-dom";

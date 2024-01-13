@@ -1,6 +1,6 @@
 import { AppRoutes } from "../src/routes/routes";
 import { useState } from "react";
-import { AuthProvider } from "./Contexts/AuthContext";
+import { AuthProvider } from "./Contexts/authContext";
 import { useNavigate } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store";

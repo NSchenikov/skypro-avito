@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { baseUrl, months } from "../../components/advList/AdvList";
-import { AdvList } from "../../components/advList/AdvList";
+import { baseUrl, months } from "../../components/advList/advList";
+import { AdvList } from "../../components/advList/advList";
 import { Header } from "../../components/header/header";
 import { PhoneButton } from "../../components/phoneButton/phoneButton";
 import "./sellerProfile.css";

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Contexts/AuthContext";
+import { useAuth } from "../../Contexts/authContext";
 import { registerUser, getToken } from "../../API/api";
 import "./signup.css";
 export const Register = () => {

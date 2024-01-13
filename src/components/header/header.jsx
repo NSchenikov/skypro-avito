@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useAuth } from "../../Contexts/AuthContext";
+import { useAuth } from "../../Contexts/authContext";
 import { AddNewAdv } from "../addNewAdv/addNewAdv";
 import "./header.css";
 

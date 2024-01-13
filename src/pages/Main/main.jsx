@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { AdvList } from "../../components/advList/AdvList";
+import { AdvList } from "../../components/advList/advList";
 import { Header } from "../../components/header/header";
 import { Search } from "../../components/search/search";
 import { getAds } from "../../API/api";
