@@ -19,6 +19,7 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
     price: adv?.price,
     images: adv?.images,
   });
+  const [error, setError] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +32,11 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!adData.title) {
+      setError("Введите название");
+      return;
+    }
+    setError(false);
     updateAd({ advId: adv.id, adData: adData });
     navigate("/");
   };
@@ -182,7 +188,9 @@ export const AdvSettings = ({ setCorrectAdvModalOnShow }) => {
             />
             <div className="form-newArt__input-price-cover"></div>
           </div>
-
+          <div style={{ color: `red` }} className="error">
+            {error ? error : ""}
+          </div>
           <button className="form-newArt__btn-pub btn-hov02" id="btnPublish">
             Сохранить
           </button>

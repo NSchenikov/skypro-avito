@@ -10,6 +10,7 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
   const [price, setPrice] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [addImagesToAdv] = useAddImagesToAdvMutation();
+  const [error, setError] = useState(false);
 
   const handleTitleChange = (e) => {
     const newTitle = e.target.value;
@@ -31,6 +32,11 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!title) {
+      setError("Введите название");
+      return;
+    }
+    setError(false);
     if (!selectedFiles.length) {
       const data = { title, description, price };
       createAddWithNoImg({ data });
@@ -113,7 +119,9 @@ export const AddNewAdv = ({ onAddAdvShow }) => {
           />
           <div className="form-newArt__input-price-cover"></div>
         </div>
-
+        <div style={{ color: `red` }} className="error">
+          {error ? error : ""}
+        </div>
         <button
           className="form-newArt__btn-pub btn-hov02"
           id="btnPublish"
