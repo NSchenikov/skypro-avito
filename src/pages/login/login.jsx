@@ -6,10 +6,9 @@ import "./signin.css";
 
 export const Login = () => {
   const navigate = useNavigate();
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const pattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const {
     authUser,
@@ -27,11 +26,27 @@ export const Login = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    setLoading(true);
     setError(null);
+    setLoading(true);
     console.log("submited form");
+    if (!email) {
+      setError("Введите email");
+      setLoading(false);
+      return;
+    }
+    if (!pattern.test(email.toLowerCase())) {
+      setLoading(false);
+      setError("Введите корректный email");
+      return;
+    }
+    if (!password) {
+      setError("Введите пароль");
+      setLoading(false);
+      return;
+    }
     getToken(email, password)
       .then((res) => {
+        setLoading(true);
         setUser("user", res.access_token, "refresh", res.refresh_token);
         setIsLoggedIn(true);
         setAuthUser(email);
@@ -41,9 +56,13 @@ export const Login = () => {
         console.log(res);
       })
       .catch((error) => {
-        setError(error.message);
+        if (error.message) {
+          setLoading(false);
+          console.log(error.message);
+          setError("Вы ввели некорректные данные");
+          return;
+        }
         setLoading(false);
-        console.log(error.message);
       });
   };
 

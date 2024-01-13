@@ -257,7 +257,7 @@ a {
 }
 .error {
   color: red;
-  font-size: xx-small;
+  font-size: medium;
 }
 
 @media screen and (max-width: 768px) {
