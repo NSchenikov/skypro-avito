@@ -505,6 +505,8 @@ a {
   .main__content {
     width: 100%;
     margin: 0 auto;
+    display: flex;
+    justify-content: center;
   }
   .profile-sell__content {
     max-width: 100%;
