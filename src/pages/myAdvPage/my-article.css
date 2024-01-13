@@ -258,8 +258,8 @@ a {
 }
 
 .article__img img {
-  width: 100%;
-  height: auto;
+  width: inherit;
+  height: inherit;
   display: block;
   -o-object-fit: cover;
   object-fit: cover;
