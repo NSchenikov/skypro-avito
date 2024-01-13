@@ -30,7 +30,6 @@ export const Profile = () => {
       setCurrentUserData(data);
       setAvatarOnChange(data.avatar);
     });
-    // console.log(currentUserData);
     getMyAllAds(localStorage.getItem("user")).then((data) => {
       setMyAds(data);
     });

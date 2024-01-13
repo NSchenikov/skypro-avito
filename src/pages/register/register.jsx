@@ -18,16 +18,8 @@ export const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const validateForm = () => password === confirmPassword;
-  const {
-    authUser,
-    setAuthUser,
-    isLoggedIn,
-    setIsLoggedIn,
-    email,
-    setEmail,
-    password,
-    setPassword,
-  } = useAuth();
+  const { setAuthUser, setIsLoggedIn, email, setEmail, password, setPassword } =
+    useAuth();
   const setUser = (user, token, refresh, refreshtok) => {
     localStorage.setItem(user, token);
     localStorage.setItem(refresh, refreshtok);
@@ -36,26 +28,21 @@ export const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(null);
-    // setLoading(true);
     const valForm = validateForm();
     if (!email) {
       setError("Введите email");
-      // setLoading(false);
       return;
     }
     if (!pattern.test(email.toLowerCase())) {
-      // setLoading(false);
       setError("Введите корректный email");
       return;
     }
     if (!password) {
       setError("Введите пароль");
-      // setLoading(false);
       return;
     }
     if (password.length < 5) {
       setError("Пароль должен быть не менее 5 символов");
-      // setLoading(false);
       return;
     }
     if (valForm) {
@@ -176,26 +163,11 @@ export const Register = () => {
                 setCity(e.target.value);
               }}
             />
-            {/* <div className="possibleError"> */}
-            {/* {!validateForm() && ( */}
             <div className="error">{errorDiv}</div>
-            {/* )} */}
-            {/* </div> */}
             <button
               className="modal__btn-signup-ent"
               id="SignUpEnter"
               disabled={loading}
-              // onClick={() =>
-              //   registerUser(
-              //     9090909,
-              //     "vpffffasasffff@gf.com",
-              //     "gjjgjFFdDddfdffdfdDDslkfglkfglfk5674!",
-              //     "Victymodfdd",
-              //     "Hoppengoferdfdfdfd",
-              //     "+982 5775785765757",
-              //     "Labitnangis"
-              //   )
-              // }
             >
               Зарегистрироваться
             </button>
