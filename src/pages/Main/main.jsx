@@ -10,13 +10,20 @@ export const Main = () => {
   const [searchValue, setSearchValue] = useState("");
   const [filteredAds, setFilteredAds] = useState(ads);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    getAds({ setLoading: setLoading }).then((response) => {
-      setAds(response);
-      console.log(response);
-      setLoading(false);
-    });
+    getAds({ setLoading: setLoading })
+      .then((response) => {
+        setAds(response);
+        console.log(response);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+        setError("Не удалось загрузить объявления, попробуйте позже");
+      });
   }, []);
   useEffect(() => {
     const searchFilter = ads.filter((ad) =>
@@ -42,6 +49,9 @@ export const Main = () => {
                   <AdvList ads={filteredAds} />
                 </div>
               </div>
+            )}
+            {error && (
+              <div style={{ color: "red", marginTop: "-100px" }}>{error}</div>
             )}
           </div>
         </main>
