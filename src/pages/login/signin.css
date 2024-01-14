@@ -53,6 +53,8 @@ a {
   width: 100%;
   min-height: 100%;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .container-enter {
@@ -61,6 +63,9 @@ a {
   margin: 0 auto;
   position: relative;
   background-color: #f4f5f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal__btn-enter:hover {
@@ -82,9 +87,10 @@ a {
 .modal__block {
   position: absolute;
   z-index: 2;
-  left: calc(50% - (366px / 2));
+  /* left: calc(50% - (366px / 2)); */
   top: calc(50% - (439px / 2));
   opacity: 1;
+  margin-left: 200px;
 }
 
 .modal__form-login {
@@ -102,6 +108,7 @@ a {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  justify-content: center;
   padding: 43px 47px 47px 40px;
 }
 
